@@ -31,13 +31,13 @@ void goFilesWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->files_box));
 }
 void buildIndex (GtkButton *button, Widgets *widgets){
-	printf("Apertou\n");
+	gtk_widget_show(GTK_WIDGET(widgets->LoadingWindow));
 }
 void goIndexWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->index_box));
 }
 void cancelBuildIndex (GtkButton *button, Widgets *widgets){
-	printf("Apertou\n");
+	gtk_widget_hide(GTK_WIDGET(widgets->LoadingWindow));
 }
 
 
