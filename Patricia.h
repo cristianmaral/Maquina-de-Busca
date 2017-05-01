@@ -31,20 +31,18 @@ typedef struct TipoPatNo {
 
 void inicializaPatricia (TipoPatNo **raiz);
 char Caractere (short i, char *k);
-short MenorIgual (char a, char b);
-short ConfereTipoNo (TipoPatNo *no);
+unsigned int MenorIgual (char a, char b);
+unsigned int ConfereTipoNo (TipoPatNo *no);
 /* Funções para criação de nós da árvore Patricia */
-TipoPatNo* CriaNoInterno (short i, TipoPatNo *Esq, TipoPatNo *Dir, char caractere);
-TipoPatNo* CriaNoExterno (char *k, int idDoc);
+TipoPatNo* CriaNoInt (short i, TipoPatNo **Esq,  TipoPatNo **Dir, char Caractere);
+TipoPatNo* CriaNoExt (char *k, int idDoc);
 /* Função de pesquisa */
-short pesquisaPatricia (char *k, TipoPatNo *t, int idDoc);
+void pesquisaPatricia (char *k, TipoPatNo *t, int idDoc);
 
 /* Funções para inserir uma palavra na árvore Patricia */
 TipoPatNo* InsereEntre (char *k, TipoPatNo **t, short i, int idDoc);
-TipoPatNo* Insere (char *k, TipoPatNo **t, int idDoc); /* A função Insere encapsula a função InsereEntre */
+TipoPatNo* InserePatricia (char *k, TipoPatNo **t, int idDoc); /* A função Insere encapsula a função InsereEntre */
 
-/* Funções para imprimir a árvore Patricia */
-void imprimeNoExterno (TipoPatNo *no);
-void imprimePatricia (TipoPatNo *no); /* A função imprimePatricia encapsula a função imprimeNoExterno */
+void imprimePatricia (TipoPatNo *no);
 
 #endif // PATRICIA_H_INCLUDED
