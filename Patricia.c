@@ -48,7 +48,7 @@ TipoPatNo * CriaNoExt (char *k, int idDoc) {
 
     no = (TipoPatNo *)malloc(sizeof(TipoPatNo));
     no->nt = Externo;
-    no->NO.Chave = k;
+    strcpy(no->NO.Chave, k);
 
     inicializaLista(&(no->NoLista.Lista));
     insereLista(&(no->NoLista.Lista), &item);
