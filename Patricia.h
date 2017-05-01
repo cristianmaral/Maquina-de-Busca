@@ -20,7 +20,7 @@ typedef struct TipoPatNo {
             char Caractere;
             struct TipoPatNo *Esq, *Dir; /* Apontadores para o filho à esquerda e o filho à direita, respectivamente */
         } NInterno;
-        char *Chave; /* Palavra do nó externo */
+        char Chave[50]; /* Palavra do nó externo */
     } NO;
     /* Cada nó externo possui uma lista encadeada */
     struct {
@@ -46,3 +46,4 @@ TipoPatNo* InserePatricia (char *k, TipoPatNo **t, int idDoc); /* A função Ins
 void imprimePatricia (TipoPatNo *no);
 
 #endif // PATRICIA_H_INCLUDED
+
