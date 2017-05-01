@@ -2,8 +2,43 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
+  <object class="GtkAboutDialog" id="AboutWindow">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Maquina De Busca - Sobre</property>
+    <property name="type_hint">dialog</property>
+    <property name="decorated">False</property>
+    <property name="program_name">Maquina De Busca</property>
+    <property name="version">v. 1.0</property>
+    <property name="website">https://github.com/cristianmaral/Maquina-de-Busca</property>
+    <property name="website_label" translatable="yes">Repositório Git</property>
+    <property name="authors">Victor Guerra Veloso, Cristian Amaral e André Costa</property>
+    <property name="documenters">Victor Guerra Veloso, Cristian Amaral e André Costa</property>
+    <property name="translator_credits" translatable="yes">Victor Guerra Veloso, Cristian Amaral e André Costa</property>
+    <property name="artists">Victor Guerra Veloso, Cristian Amaral e André Costa</property>
+    <property name="logo_icon_name">media-flash</property>
+    <property name="license_type">gpl-3-0</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="about_box">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="about_buttonbox">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkWindow" id="LoadingWindow">
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Maquina De Busca - Loading</property>
     <property name="default_width">400</property>
     <property name="default_height">300</property>
     <property name="decorated">False</property>
@@ -56,164 +91,7 @@
       </object>
     </child>
   </object>
-  <object class="GtkWindow" id="MainWindow">
-    <property name="can_focus">False</property>
-    <property name="default_width">800</property>
-    <property name="default_height">600</property>
-    <property name="decorated">False</property>
-    <child>
-      <object class="GtkBox" id="main_outter_box">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkHeaderBar" id="main_header">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="title">Programa</property>
-            <property name="has_subtitle">False</property>
-            <child>
-              <object class="GtkButton" id="main_aboutbutton">
-                <property name="label" translatable="yes">Sobre</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="main_closebutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Fechar</property>
-                <property name="relief">none</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="closeProgram" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="main_closebutton_image">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-close</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="main_innerupper_searchbox">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_top">7</property>
-            <property name="margin_bottom">7</property>
-            <child>
-              <object class="GtkSearchEntry" id="main_searchentry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="tooltip_text" translatable="yes">Preencha com palavras separadas por espaço</property>
-                <property name="primary_icon_name">edit-find-symbolic</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="primary_icon_sensitive">False</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="main_searchbutton">
-                <property name="label" translatable="yes">Buscar Palavra</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Buscar palavra e exibir resultado na tela de busca</property>
-                <signal name="clicked" handler="goSearchWindow" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="main_innerlower_buttonbox">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="valign">end</property>
-            <property name="margin_top">7</property>
-            <child>
-              <object class="GtkButton" id="VisualizarIndice">
-                <property name="label" translatable="yes">Visualizar Indice</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Ir para tela de visualização do Índice Invertido</property>
-                <signal name="clicked" handler="goIndexWindow" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ConstruirIndice">
-                <property name="label" translatable="yes">Construir Indice</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Construir índice invertido</property>
-                <signal name="clicked" handler="buildIndex" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="GerenciarArquivos">
-                <property name="label" translatable="yes">Gerenciar Arquivos</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Ir para tela de gerenciamento de arquivos</property>
-                <signal name="clicked" handler="goFilesWindow" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
+  <object class="GtkSizeGroup" id="agrupamento_tamanho_telas"/>
   <object class="GtkListStore" id="files_lista_dados">
     <columns>
       <!-- column-name NomeDoArquivo -->
@@ -240,165 +118,6 @@
     <property name="upper">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
-  </object>
-  <object class="GtkWindow" id="FilesWindow">
-    <property name="can_focus">False</property>
-    <property name="default_width">800</property>
-    <property name="default_height">600</property>
-    <child>
-      <object class="GtkBox" id="files_outter_box">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkHeaderBar" id="files_header">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkButton" id="files_backbutton">
-                <property name="label" translatable="yes">Voltar</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Voltar para tela inicial</property>
-              </object>
-            </child>
-            <child type="title">
-              <object class="GtkLabel" id="files_title">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">3 Arquivos Adicionados</property>
-                <property name="justify">center</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="files_closebutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Fechar</property>
-                <property name="relief">none</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="closeProgram" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="files_closebutton_image">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-close</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="files_innerupper_box">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkTreeView" id="files_lista_viewer">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="vadjustment">files_scrollbar_config</property>
-                <property name="model">files_lista_dados</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection" id="treeview-selection4"/>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="NomeDoArquivo">
-                    <property name="resizable">True</property>
-                    <property name="title" translatable="yes">Nome Do Arquivo</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="CaminhoDoArquivo">
-                    <property name="resizable">True</property>
-                    <property name="title" translatable="yes">Caminho</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="Remover">
-                    <property name="resizable">True</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkScrollbar" id="files_scrollbar">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="adjustment">files_scrollbar_config</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="files_innerlower_box">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkFileChooserButton" id="files_filechooserbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">Abrir seletor de arquivos</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="files_addbutton">
-                <property name="label">gtk-add</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Adicionar arquivo selecionado</property>
-                <property name="use_stock">True</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="addFile" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
   </object>
   <object class="GtkListStore" id="index_lista_dados">
     <columns>
@@ -431,174 +150,6 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkWindow" id="IndexWindow">
-    <property name="can_focus">False</property>
-    <property name="default_width">800</property>
-    <property name="default_height">600</property>
-    <property name="decorated">False</property>
-    <child>
-      <object class="GtkBox" id="index_outter_box">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkHeaderBar" id="index_header">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkButton" id="index_backbutton">
-                <property name="label" translatable="yes">Voltar</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Voltar para tela inicial</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="index_pagedownbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Mudar para página anterior</property>
-                <property name="always_show_image">True</property>
-                <child>
-                  <object class="GtkImage" id="index_pagedownbutton_image">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-go-back</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child type="title">
-              <object class="GtkLabel" id="index_title">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">1 a 3 de 30</property>
-                <property name="justify">center</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="index_closebutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Fechar</property>
-                <property name="relief">none</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="closeProgram" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="index_closebutton_image">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-close</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="index_pageupbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Mudar para próxima página</property>
-                <child>
-                  <object class="GtkImage" id="index_pageupbutton_image">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-go-forward</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="index_inner_box">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkTreeView" id="index_lista_viewer">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="vadjustment">index_scrollbar_config</property>
-                <property name="vscroll_policy">natural</property>
-                <property name="model">index_lista_dados</property>
-                <property name="enable_search">False</property>
-                <property name="enable_grid_lines">both</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection" id="index_lista_selecionado"/>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="index_lista_colunaPalavra">
-                    <property name="resizable">True</property>
-                    <property name="title" translatable="yes">Palavra</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="index_lista_colunaArquivo1">
-                    <property name="resizable">True</property>
-                    <property name="title" translatable="yes">1º Arquivo</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="index_lista_colunaArquivo2">
-                    <property name="resizable">True</property>
-                    <property name="title" translatable="yes">2º Arquivo</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="index_lista_colunaArquivo3">
-                    <property name="resizable">True</property>
-                    <property name="title" translatable="yes">3º Arquivo</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkScrollbar" id="index_scrollbar">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="adjustment">index_scrollbar_config</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkListStore" id="search_lista_dados">
     <columns>
       <!-- column-name NomeDocumento -->
@@ -612,108 +163,99 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkWindow" id="SearchWindow">
+  <object class="GtkWindow" id="MainWindow">
     <property name="can_focus">False</property>
-    <property name="default_width">800</property>
-    <property name="default_height">600</property>
+    <property name="title" translatable="yes">Maquina De Busca</property>
     <property name="decorated">False</property>
     <child>
-      <object class="GtkBox" id="search_outter_box">
+      <object class="GtkStack" id="PilhaDeJanelas">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkHeaderBar" id="search_header">
+          <object class="GtkBox" id="main_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkButton" id="search_backbutton">
-                <property name="label" translatable="yes">Voltar</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Voltar para tela inicial</property>
-              </object>
-            </child>
-            <child type="title">
-              <object class="GtkLabel" id="search_title">
+              <object class="GtkHeaderBar" id="main_header">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Palavra1, Palavra2, Palavra3...</property>
-                <property name="justify">center</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="search_closebutton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Fechar</property>
-                <property name="relief">none</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="closeProgram" swapped="no"/>
+                <property name="title">Programa</property>
+                <property name="has_subtitle">False</property>
                 <child>
-                  <object class="GtkImage" id="search_closebutton_image">
+                  <object class="GtkButton" id="main_aboutbutton">
+                    <property name="label" translatable="yes">Sobre</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-close</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="search_inner_box">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkTreeView" id="search_lista_viewer">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="vadjustment">search_scrollbar_config</property>
-                <property name="vscroll_policy">natural</property>
-                <property name="model">search_lista_dados</property>
-                <property name="enable_search">False</property>
-                <property name="search_column">0</property>
-                <property name="enable_grid_lines">horizontal</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection" id="treeview-selection3"/>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="NomeDocumento">
-                    <property name="resizable">True</property>
-                    <property name="title" translatable="yes">Nome Documento</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <signal name="clicked" handler="openAboutWindow" swapped="no"/>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkTreeViewColumn" id="NRecorrencias">
-                    <property name="resizable">True</property>
-                    <property name="title" translatable="yes">Nº de Recorrencias</property>
+                  <object class="GtkButton" id="main_closebutton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Fechar</property>
+                    <property name="relief">none</property>
+                    <property name="always_show_image">True</property>
+                    <signal name="clicked" handler="closeProgram" swapped="no"/>
+                    <child>
+                      <object class="GtkImage" id="main_closebutton_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-close</property>
+                      </object>
+                    </child>
                   </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkScrollbar" id="search_scrollbar">
+              <object class="GtkBox" id="main_innerupper_searchbox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="adjustment">search_scrollbar_config</property>
+                <property name="margin_top">7</property>
+                <property name="margin_bottom">7</property>
+                <child>
+                  <object class="GtkSearchEntry" id="main_searchentry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="tooltip_text" translatable="yes">Preencha com palavras separadas por espaço</property>
+                    <property name="primary_icon_name">edit-find-symbolic</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="main_searchbutton">
+                    <property name="label" translatable="yes">Buscar Palavra</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Buscar palavra e exibir resultado na tela de busca</property>
+                    <signal name="clicked" handler="goSearchWindow" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -721,22 +263,520 @@
                 <property name="position">1</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkBox" id="main_innerlower_buttonbox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">end</property>
+                <property name="margin_top">7</property>
+                <child>
+                  <object class="GtkButton" id="index_visualize_button">
+                    <property name="label" translatable="yes">Visualizar Indice</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Ir para tela de visualização do Índice Invertido</property>
+                    <signal name="clicked" handler="goIndexWindow" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="index_build_button">
+                    <property name="label" translatable="yes">Construir Indice</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Construir índice invertido</property>
+                    <signal name="clicked" handler="buildIndex" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="file_manage_button">
+                    <property name="label" translatable="yes">Gerenciar Arquivos</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Ir para tela de gerenciamento de arquivos</property>
+                    <signal name="clicked" handler="goFilesWindow" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </object>
           <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
+            <property name="name">page0</property>
+            <property name="title" translatable="yes">page0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="index_box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkHeaderBar" id="index_header">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkButton" id="index_backbutton">
+                    <property name="label" translatable="yes">Voltar</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Voltar para tela inicial</property>
+                    <signal name="clicked" handler="goMainWindow" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="index_pagedownbutton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Mudar para página anterior</property>
+                    <property name="always_show_image">True</property>
+                    <child>
+                      <object class="GtkImage" id="index_pagedownbutton_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-go-back</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child type="title">
+                  <object class="GtkLabel" id="index_title">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">1 a 3 de 30</property>
+                    <property name="justify">center</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="index_closebutton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Fechar</property>
+                    <property name="relief">none</property>
+                    <property name="always_show_image">True</property>
+                    <signal name="clicked" handler="closeProgram" swapped="no"/>
+                    <child>
+                      <object class="GtkImage" id="index_closebutton_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-close</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="index_pageupbutton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Mudar para próxima página</property>
+                    <child>
+                      <object class="GtkImage" id="index_pageupbutton_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-go-forward</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="index_inner_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkTreeView" id="index_lista_viewer">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="vadjustment">index_scrollbar_config</property>
+                    <property name="vscroll_policy">natural</property>
+                    <property name="model">index_lista_dados</property>
+                    <property name="enable_search">False</property>
+                    <property name="enable_grid_lines">both</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="index_treeview_selection"/>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="index_lista_colunaPalavra">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Palavra</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="index_lista_colunaArquivo1">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">1º Arquivo</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="index_lista_colunaArquivo2">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">2º Arquivo</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="index_lista_colunaArquivo3">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">3º Arquivo</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrollbar" id="index_scrollbar">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <property name="adjustment">index_scrollbar_config</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="name">page1</property>
+            <property name="title" translatable="yes">page1</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="search_box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkHeaderBar" id="search_header">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkButton" id="search_backbutton">
+                    <property name="label" translatable="yes">Voltar</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Voltar para tela inicial</property>
+                    <signal name="clicked" handler="goMainWindow" swapped="no"/>
+                  </object>
+                </child>
+                <child type="title">
+                  <object class="GtkLabel" id="search_title">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Palavra1, Palavra2, Palavra3...</property>
+                    <property name="justify">center</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="search_closebutton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Fechar</property>
+                    <property name="relief">none</property>
+                    <property name="always_show_image">True</property>
+                    <signal name="clicked" handler="closeProgram" swapped="no"/>
+                    <child>
+                      <object class="GtkImage" id="search_closebutton_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-close</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="search_inner_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkTreeView" id="search_lista_viewer">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="vadjustment">search_scrollbar_config</property>
+                    <property name="vscroll_policy">natural</property>
+                    <property name="model">search_lista_dados</property>
+                    <property name="enable_search">False</property>
+                    <property name="search_column">0</property>
+                    <property name="enable_grid_lines">horizontal</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="search_treeview_selection"/>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="NomeDocumento">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Nome Documento</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="NRecorrencias">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Nº de Recorrencias</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrollbar" id="search_scrollbar">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <property name="adjustment">search_scrollbar_config</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="name">page2</property>
+            <property name="title" translatable="yes">page2</property>
             <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="files_box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkHeaderBar" id="files_header">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkButton" id="files_backbutton">
+                    <property name="label" translatable="yes">Voltar</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Voltar para tela inicial</property>
+                    <signal name="clicked" handler="goMainWindow" swapped="no"/>
+                  </object>
+                </child>
+                <child type="title">
+                  <object class="GtkLabel" id="files_title">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">3 Arquivos Adicionados</property>
+                    <property name="justify">center</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="files_closebutton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Fechar</property>
+                    <property name="relief">none</property>
+                    <property name="always_show_image">True</property>
+                    <signal name="clicked" handler="closeProgram" swapped="no"/>
+                    <child>
+                      <object class="GtkImage" id="files_closebutton_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-close</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="files_innerupper_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkTreeView" id="files_lista_viewer">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="vadjustment">files_scrollbar_config</property>
+                    <property name="model">files_lista_dados</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="files_treeview_selection"/>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="NomeDoArquivo">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Nome Do Arquivo</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="CaminhoDoArquivo">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Caminho</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="Remover">
+                        <property name="resizable">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrollbar" id="files_scrollbar">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <property name="adjustment">files_scrollbar_config</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="files_innerlower_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkFileChooserButton" id="files_filechooserbutton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">Abrir seletor de arquivos</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="files_addbutton">
+                    <property name="label">gtk-add</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Adicionar arquivo selecionado</property>
+                    <property name="use_stock">True</property>
+                    <property name="always_show_image">True</property>
+                    <signal name="clicked" handler="addFile" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="name">page3</property>
+            <property name="title" translatable="yes">page3</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkSizeGroup" id="agrupamento_tamanho_telas">
-    <widgets>
-      <widget name="MainWindow"/>
-      <widget name="SearchWindow"/>
-      <widget name="IndexWindow"/>
-    </widgets>
   </object>
   <object class="GtkListStore" id="selecionador_combobox_extensao_dados">
     <columns>
@@ -758,14 +798,16 @@
   </object>
   <object class="GtkFileChooserDialog" id="SelecionadorDeArquivo">
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Maquina De Busca - Escolha de arquivo</property>
     <property name="type_hint">dialog</property>
+    <property name="decorated">False</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="selecionador_outter_box">
+      <object class="GtkBox" id="selecionador_box">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="selecionador_inner_buttonbox">
+          <object class="GtkButtonBox" id="selecionador_buttonbox">
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
