@@ -4,7 +4,6 @@
 typedef struct {
     int qtde;
     int idDoc;
-    float relevancia;
     float peso;
 } TItem;
 
@@ -16,6 +15,7 @@ typedef struct Celula {
 typedef struct {
     TCelula *primeiro;
     TCelula *ultimo;
+    int tamanho;
 } TLista;
 
 void inicializaLista (TLista *Lista);
