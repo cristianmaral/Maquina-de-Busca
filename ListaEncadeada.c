@@ -6,6 +6,7 @@
 void inicializaLista (TLista *Lista) {
     Lista->primeiro = Lista->ultimo = (TCelula *)malloc(sizeof(TCelula));
     Lista->primeiro->prox = NULL;
+    Lista->tamanho = 0;
 }
 
 /* Insere um item na lista */
@@ -22,13 +23,12 @@ void imprimeLista (TLista *Lista) {
     TCelula *aux;
     aux = Lista->primeiro->prox;
 
-    while (aux != NULL)
-    {
+    while (aux != NULL) {
         if(aux->prox == NULL)
-            printf("(%d,%d)\n", aux->item.qtde, aux->item.idDoc);
+            printf("<%d,%d>\n", aux->item.qtde, aux->item.idDoc);
         /* Imprime "->" no final do par ordenado */
         else
-            printf("(%d,%d) -> ", aux->item.qtde, aux->item.idDoc);
+            printf("<%d,%d> -> ", aux->item.qtde, aux->item.idDoc);
 
         aux = aux->prox;
     }
