@@ -9,20 +9,14 @@ void inicializaPatricia (TipoPatNo **raiz) {
     *raiz = NULL;
 }
 
-/* Função para retornar o i-esimo caractere da chave k a partir da esquerda */
-char Caractere (short i, char *k) {
-    return k[i];
-}
-
-/* Função que compara qual caractere é menor/maior */
-unsigned int MenorIgual(char a, char b)
-{
-    return (a <= b) ? TRUE:FALSE;
+/* Função que compara 2 caracteres e retorna 1 se o caractere a for >= a  b e retorna 0 quando b > a */
+unsigned int ComparaChar (char a, char b) {
+    return (a <= b) ? 1:0;
 }
 
 /* Função para conferir se o nó passado como parâmetro é interno ou externo */
 unsigned int ConfereTipoNo (TipoPatNo *no) {
-    return (no->nt == Externo) ? TRUE:FALSE; /* Retorna 1 se for externo e retorna 0 se for interno */
+    return (no->nt == Externo) ? 1:0; /* Retorna 1 se for externo e retorna 0 se for interno */
 }
 
 /* Função para criar um nó interno da árvore Patricia */
@@ -44,29 +38,29 @@ TipoPatNo * CriaNoExt (char *k, int idDoc) {
 
     item.qtde = 1;
     item.idDoc = idDoc;
-    item.relevancia = 0;
+    item.peso = 0;
 
     no = (TipoPatNo *)malloc(sizeof(TipoPatNo));
     no->nt = Externo;
-    strcpy(no->NO.Chave, k);
+    strcpy(no->NO.NExterno.Palavra, k); /*  */
 
-    inicializaLista(&(no->NoLista.Lista));
-    insereLista(&(no->NoLista.Lista), &item);
-    no->NoLista.tamanho = 1;
+    inicializaLista(&(no->NO.NExterno.Lista));
+    insereLista(&(no->NO.NExterno.Lista), &item);
+    no->NO.NExterno.Lista.tamanho = 1;
     return no;
 }
 
 /* Função para pesquisar se uma palavra k se encontra na árvore com seu respectivo idDoc */
-void pesquisaPatricia (char *k, TipoPatNo *t, int idDoc) {
+void PesquisaPatricia (char *k, TipoPatNo *t, int idDoc) {
     TCelula *celula; /* Célula auxiliar para percorrer a lista do nó externo encontrado */
 
     if (ConfereTipoNo(t)) /* Se o nó for externo */
     {
-        celula = t->NoLista.Lista.primeiro->prox; /* Passa a apontar para a primeira célula da lista */
-        if (strcmp(k, t->NO.Chave) == 0){ /* Se a palavra k procurada for igual à palavra do nó externo */
+        celula = t->NO.NExterno.Lista.primeiro->prox; /* Passa a apontar para a primeira célula da lista */
+        if (strcmp(k, t->NO.NExterno.Palavra) == 0){ /* Se a palavra k procurada for igual à palavra do nó externo */
             while(celula != NULL){
                 if(celula->item.idDoc == idDoc) {/* Confere se a palavra se encontra no idDoc procurado */
-                    printf("A palavra %s, cujo idDoc eh %d se encontra na arvore\n", t->NO.Chave, celula->item.idDoc); /* Achou a palavra k no dado idDoc */
+                    printf("A palavra %s, cujo idDoc eh %d se encontra na arvore\n", t->NO.NExterno.Palavra, celula->item.idDoc); /* Achou a palavra k no dado idDoc */
                     return;
                 }
                 else
@@ -83,11 +77,11 @@ void pesquisaPatricia (char *k, TipoPatNo *t, int idDoc) {
         }
     }
     /* Se k[t->NO.NInterno.Index] for <= ao caractere do nó interno atual, chama recursivamente para o nó à esquerda */
-    if (MenorIgual(Caractere(t->NO.NInterno.Index, k), t->NO.NInterno.Caractere))
-        pesquisaPatricia(k, t->NO.NInterno.Esq, idDoc);
+    if (ComparaChar(k[t->NO.NInterno.Index], t->NO.NInterno.Caractere))
+        PesquisaPatricia(k, t->NO.NInterno.Esq, idDoc);
     /* Caso contrário, chama recursivamente para o nó à direita */
     else
-        pesquisaPatricia(k, t->NO.NInterno.Dir, idDoc);
+        PesquisaPatricia(k, t->NO.NInterno.Dir, idDoc);
 
 }
 
@@ -97,25 +91,27 @@ TipoPatNo * InsereEntre (char *k, TipoPatNo **t, short i, int idDoc) {
 
     if (ConfereTipoNo(*t) || i < (*t)->NO.NInterno.Index) {
         if(ConfereTipoNo(*t)) { /* Se for nó externo */
-            caractere = Caractere(i, (*t)->NO.Chave);
+            caractere = (*t)->NO.NExterno.Palavra[i];
         }
         else { /* Se for nó interno */
             caractere = (*t)->NO.NInterno.Caractere;
+            printf("-------------Entrou aqui---------------\n");
         }
         /* Cria um novo nó externo */
         p = CriaNoExt(k, idDoc);
-        if (MenorIgual(Caractere(i, k), caractere)){
-            printf("\nEntrou aqui\n");
-            return (CriaNoInt(i, &p, t, Caractere(i, k)));
-        }
-        else {
-            printf("\nEntrou aqui 2\n");
+        /* Se k[i] <= caractere, cria um nó interno com o indice i e o caractere, o filho à esquerda desse novo nó interno passa a ser
+           o nó p e o filho à direita passa a ser o nó t */
+        if (ComparaChar(k[i], caractere))
+            return (CriaNoInt(i, &p, t, k[i]));
+        /* Caso contrário, cria um nó interno com o indice i e o caractere, o filho à esquerda desse novo nó interno passa a ser
+           o nó t e o filho à direita passa a ser o nó p */
+        else
             return (CriaNoInt(i, t, &p, caractere));
-        }
     }
+    /* Nó é interno ou i >=  (*t)->NO.NInterno.Index */
     else {
         /* Se k[(*t)->NO.NInterno.Index] for <= ao caractere do nó interno atual, chama recursivamente para o nó à esquerda */
-        if (MenorIgual(Caractere((*t)->NO.NInterno.Index, k), (*t)->NO.NInterno.Caractere))
+        if (ComparaChar(k[(*t)->NO.NInterno.Index], (*t)->NO.NInterno.Caractere))
             (*t)->NO.NInterno.Esq = InsereEntre(k, &(*t)->NO.NInterno.Esq, i, idDoc);
         /* Caso contrário, chama recursivamente para o nó à direita */
         else
@@ -125,21 +121,21 @@ TipoPatNo * InsereEntre (char *k, TipoPatNo **t, short i, int idDoc) {
     }
 }
 
+/* Função principal para inserir uma palavra k na árvore Patricia */
 TipoPatNo * InserePatricia (char *k, TipoPatNo **t, int idDoc) {
     TipoPatNo *p;
     int i;
     TCelula *celula;
     TItem item;
 
-    printf("String: %s\n", k);
     if (*t == NULL){ /* Árvore está vazia, logo criamos um nó externo com a palavra k passada como parâmetro */
         return (CriaNoExt(k,idDoc));
     }
     else { /* Árvore não está vazia */
         p = *t;
-        while (!ConfereTipoNo(p)) { /* Se for nó interno */
+        while (!ConfereTipoNo(p)) { /* Enquanto p for nó interno */
             /* Se k[p->NO.NInterno.Index] for <= ao caractere do nó p, p passa a apontar para o filho à esquerda */
-            if (MenorIgual(Caractere(p->NO.NInterno.Index, k), p->NO.NInterno.Caractere))
+            if (ComparaChar(k[p->NO.NInterno.Index], p->NO.NInterno.Caractere))
                 p = p->NO.NInterno.Esq;
             /* Caso contrário, p passa a apontar para o filho à direita */
             else
@@ -148,70 +144,35 @@ TipoPatNo * InserePatricia (char *k, TipoPatNo **t, int idDoc) {
 
         /* acha o primeiro Caractere diferente */
         i = 0;
-        if(strlen(k) >= strlen(p->NO.Chave)) { /* Se o tamanho da palavra k for >= ao tamanho da palavra do nó p */
-            /* Enquanto i for <= ao tamanho da palavra k && k[i] for igual à p->NO.Chave[i] */
-            while ((i <= strlen(k)) && (Caractere(i, k) == Caractere(i, p->NO.Chave)))
+        /* Se o tamanho da palavra k for >= ao tamanho da palavra do nó p */
+        if(strlen(k) >= strlen(p->NO.NExterno.Palavra)) {
+            /* Enquanto i for < que o tamanho da palavra k && k[i] for igual à p->NO.Palavra[i] */
+            while ((i < strlen(p->NO.NExterno.Palavra)) && (k[i] == p->NO.NExterno.Palavra[i]))
                 i++;
-            /* Se i for >= ao tamanho da palavra k */
-            if (i >= strlen(k)) {
-                celula = p->NoLista.Lista.primeiro->prox;
-                /* Se o idDoc da palavra k for igual ao idDoc da celula atual */
-                if(celula->item.idDoc == idDoc) {
+            /* Se i for == ao tamanho da palavra k */
+            printf("\ni: %d\n", i);
+            if (i == strlen(k)) {
+                celula = p->NO.NExterno.Lista.primeiro->prox;
+                /* Se o idDoc da palavra k passado como parâmetro for igual ao idDoc da celula atual */
+                if(celula->item.idDoc == idDoc)
                     celula->item.qtde++; /* Incrementa a quantidade de ocorrências da palavra k */
-                }
                 /* Caso contrário */
                 else {
-                    /* Procura uma célula que tenha o dado idDoc */
+                    /* Procura uma célula que tenha o idDoc passado como parâmetro */
                     while(celula->prox != NULL && celula->item.idDoc != idDoc)
                         celula = celula->prox;
-                    /* Se foi encontrada uma célula que tenha o dado idDoc */
+                    /* Se foi encontrada uma célula cujo idDoc seja igual ao idDoc passado como parâmetro */
                     if(celula->item.idDoc == idDoc)
                         celula->item.qtde++; /* Incrementa a quantidade de ocorrências da palavra k */
-                    /* Caso contrário */
+                    /* Caso contrário - Se não existir nenhuma célula da palavra k com o idDoc passado como parâmetro */
                     else {
-                        if(celula->item.idDoc != idDoc && celula->prox == NULL){
-                            /* Cria uma celula com a palavra k no dado idDoc */
+                        if(celula->item.idDoc != idDoc && celula->prox == NULL) {
+                            /* Cria uma nova célula com a palavra k cujo campo idDoc seja o idDoc passado como parâmetro */
                             item.idDoc = idDoc;
                             item.qtde = 1;
-                            item.relevancia = 0;
-                            insereLista(&(p->NoLista.Lista), &item); /* Insere a célula na lista */
-                            p->NoLista.tamanho++; /* Incrementa o tamanho da lista */
-                        }
-                    }
-                }
-                return (*t);
-            }
-            else /* Se i for < que o tamanho da palavra k */
-                return (InsereEntre(k, t, i,idDoc));
-        }
-        /* Se a palavra k for < que a palavra do nó p */
-        else {
-            /* Enquanto i for <= ao tamanho da palavra k && k[i] for igual à p->NO.Chave[i] */
-            while ((i <= strlen(p->NO.Chave)) && (Caractere(i, k) == Caractere(i, p->NO.Chave)))
-                i++;
-            /* Se i for >= ao tamanho da palavra k */
-            if (i >= strlen(p->NO.Chave)){
-                celula = p->NoLista.Lista.primeiro->prox;
-                /* Se o idDoc da palavra k for igual ao idDoc da celula atual */
-                if(celula->item.idDoc == idDoc){
-                    celula->item.qtde++; /* Incrementa a quantidade de ocorrências da palavra k */
-                }
-                /* Caso contrário */
-                else {
-                    /* Procura uma célula que tenha o dado idDoc */
-                    while(celula->prox != NULL && celula->item.idDoc != idDoc)
-                        celula = celula->prox;
-                    /* Se foi encontrada uma célula que tenha o dado idDoc */
-                    if(celula->item.idDoc == idDoc)
-                        celula->item.qtde++; /* Incrementa a quantidade de ocorrências da palavra k */
-                    else {
-                        if(celula->item.idDoc != idDoc && celula->prox == NULL){
-                            /* Cria uma célula com a palavra k no dado idDoc */
-                            item.idDoc = idDoc;
-                            item.qtde = 1;
-                            item.relevancia = 0;
-                            insereLista(&(p->NoLista.Lista),&item); /* Insere a célula na lista */
-                            p->NoLista.tamanho++; /* Incrementa o tamanho da lista */
+                            item.peso = 0;
+                            insereLista(&(p->NO.NExterno.Lista), &item); /* Insere a célula na lista */
+                            p->NO.NExterno.Lista.tamanho++; /* Incrementa o tamanho da lista */
                         }
                     }
                 }
@@ -221,28 +182,32 @@ TipoPatNo * InserePatricia (char *k, TipoPatNo **t, int idDoc) {
             else
                 return (InsereEntre(k, t, i,idDoc));
         }
+        /* Se a palavra k for < que a palavra do nó p */
+        else {
+            /* Enquanto i for < que o tamanho da palavra k && k[i] for igual à p->NO.Palavra[i] */
+            while ((i < strlen(k)) && (k[i] == p->NO.NExterno.Palavra[i]))
+                i++;
+            printf("\ni do else: %d\n", i);
+            return (InsereEntre(k, t, i,idDoc));
+        }
     }
 }
 
 /* Função para imprimir a árvore Patricia em ordem */
-void imprimePatricia (TipoPatNo *no)
-{
-
+void imprimePatricia (TipoPatNo *no) {
     if(no == NULL) {
         printf("Arvore esta vazia\n");
         return;
     }
-    if(!ConfereTipoNo(no)) {/* Se for nó interno */
-        imprimePatricia(no->NO.NInterno.Esq); /* Chamada recursiva para o nó à esquerda */
-    }
+    if(!ConfereTipoNo(no)) /* Se for nó interno */
+        imprimePatricia(no->NO.NInterno.Esq); /* Chamada recursivamente para o nó à esquerda */
 
-    if (ConfereTipoNo(no)) {
-        printf("Palavra: %s -> ",no->NO.Chave);
-        imprimeLista(&(no->NoLista.Lista));
+    if (ConfereTipoNo(no)) { /* Se for nó externo, o nó deve ser impresso */
+        printf("[%s] -> ",no->NO.NExterno.Palavra);
+        imprimeLista(&(no->NO.NExterno.Lista));
         return;
     }
 
-    if(!ConfereTipoNo(no)) { /* Se for nó interno */
-        imprimePatricia(no->NO.NInterno.Dir); /* Chamada recursiva para o nó à direita */
-    }
+    if(!ConfereTipoNo(no)) /* Se for nó interno */
+        imprimePatricia(no->NO.NInterno.Dir); /* Chamada recursivamente para o nó à direita */
 }
