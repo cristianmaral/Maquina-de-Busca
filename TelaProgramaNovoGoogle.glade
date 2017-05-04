@@ -91,7 +91,7 @@
       </object>
     </child>
   </object>
-  <object class="GtkSizeGroup" id="agrupamento_tamanho_telas"/>
+  <object class="GtkEntryCompletion" id="entrycompletion"/>
   <object class="GtkListStore" id="files_lista_dados">
     <columns>
       <!-- column-name NomeDoArquivo -->
@@ -234,6 +234,8 @@
                     <property name="primary_icon_name">edit-find-symbolic</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="primary_icon_sensitive">False</property>
+                    <property name="completion">entrycompletion</property>
+                    <signal name="search-changed" handler="pesquisaAlterada" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -777,6 +779,14 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkSizeGroup" id="agrupamento_tamanho_telas">
+    <widgets>
+      <widget name="main_box"/>
+      <widget name="index_box"/>
+      <widget name="search_box"/>
+      <widget name="files_box"/>
+    </widgets>
   </object>
   <object class="GtkListStore" id="selecionador_combobox_extensao_dados">
     <columns>

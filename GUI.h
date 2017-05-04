@@ -1,6 +1,8 @@
 #ifndef GUI_H_INCLUDED
 #define GUI_H_INCLUDED
+#include "TST.h"
 #include <gtk/gtk.h>
+No *raiz;
 typedef struct {
 	GtkWindow *MainWindow;
 	GtkStack *PilhaDeJanelas;
@@ -74,6 +76,8 @@ typedef struct {
 	GtkButton *files_addbutton;
 		//end files_innerlower_box
 	//Helper Widgets
+	GtkSizeGroup *agrupamento_tamanho_telas;
+	GtkEntryCompletion *entrycompletion;
 	GtkListStore *files_lista_dados, *index_lista_dados, *search_lista_dados, *selecionador_combobox_extensao_dados;
 	GtkFileChooserDialog *SelecionadorDeArquivo;
 		//begin SelecionadorDeArquivo

@@ -97,6 +97,8 @@ void gtkMain(int argc, char *argv[]){
 	widgets.files_addbutton = GTK_BUTTON(gtk_builder_get_object(gtkBuilder, "files_addbutton"));
 		//end files_innerlower_box
 	//Helper Widgets
+	widgets.agrupamento_tamanho_telas = GTK_SIZE_GROUP(gtk_builder_get_object(gtkBuilder, "agrupamento_tamanho_telas"));
+	widgets.entrycompletion = GTK_ENTRY_COMPLETION(gtk_builder_get_object(gtkBuilder, "entrycompletion"));
 	widgets.files_lista_dados = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "files_lista_dados"));
 	widgets.index_lista_dados = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "index_lista_dados"));
 	widgets.search_lista_dados = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "search_lista_dados"));

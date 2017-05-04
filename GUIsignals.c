@@ -1,7 +1,13 @@
 #include "GUIsignals.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 //inside main_box signals
+void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets){
+	const gchar* text=	gtk_entry_get_text(GTK_ENTRY(entry));
+	if(strcmp((char*)text,"") != 0)
+		AutoPreenchimentoTST(raiz,0,(char*)text);
+}
 void goMainWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->main_box));
 }

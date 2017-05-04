@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 50 /* Tamanho máximo de letras que uma palavra pode conter */
+#define MAXTAM 50 /* Tamanho máximo de letras que uma palavra pode conter */
 
 /* Nó da Árvore TST */
 typedef struct No

@@ -1,7 +1,7 @@
 #ifndef GUISIGNALS_H_INCLUDED
 #define GUISIGNALS_H_INCLUDED
 #include "GUI.h"
-
+void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets);
 void goSearchWindow (GtkButton *button, Widgets *widgets);
 void goMainWindow (GtkButton *button, Widgets *widgets);
 void filtrarExtensao (GtkButton *button, Widgets *widgets);

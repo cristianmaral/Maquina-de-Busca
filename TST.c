@@ -69,7 +69,7 @@ void percorre (No* no, char* palavra,char *prefixo, int indice)
 /* Função principal que encapsula a função transverseTSTUtil */
 void percorreTST(No* no, char *prefixo)
 {
-    char palavra[MAX]; // MAX definido como 50
+    char palavra[MAXTAM]; // MAXTAM definido como 50
     percorre(no, palavra, prefixo, 0);
 }
 
@@ -101,6 +101,7 @@ int pesquisaTST(No *no, char *palavra)
 }
 /* Função responsavel por encontrar posicao de possiveis palavras para o prefixo */
 void AutoPreenchimentoTST(No *no, int indice, char *prefixo){
+    if(!no) return;
     if (prefixo[indice] < (no)->caractere)
 	AutoPreenchimentoTST(no->esq,indice,prefixo);
 
@@ -109,8 +110,7 @@ void AutoPreenchimentoTST(No *no, int indice, char *prefixo){
     else
     {
 	if(prefixo[indice+1] == '\0'){
-		if(!no) return;
-		else percorreTST(no->meio,prefixo);
+		percorreTST(no->meio,prefixo);
 	}
 	else
 		AutoPreenchimentoTST(no->meio,indice+1,prefixo);
