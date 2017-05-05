@@ -1,9 +1,11 @@
 #include "MaquinaDeBusca.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 
-/* Função para transformar todas as letras de uma string para minísculas */
+/* Função  */
 char *strlwr(char *str) {
     unsigned char *p = (unsigned char *)str;
 
@@ -22,6 +24,7 @@ void AdicionaArquivo (TLista *ListaArquivos) {
     item.it.arq.entrada = fopen(item.it.arq.nome_arquivo, "r");
     if (item.it.arq.entrada) {
         printf("Arquivo válido\n");
+        item.it.arq.termos_distintos = 0;
         insereLista(ListaArquivos, &item);
     }
     else
@@ -35,6 +38,54 @@ void FechaArquivos (TLista *ListaArquivos) {
         fclose(celula->item.it.arq.entrada);
         celula = celula->prox;
     }
+}
+
+void CalculaPesos (TipoPatNo *no, int N) {
+    TCelula *celula;
+    int d; /* Número de documentos na coleção que contêm o termo k */
+    if(no == NULL) {
+        printf("Arvore esta vazia\n");
+        return;
+    }
+    if(!ConfereTipoNo(no)) /* Se for nó interno */
+        CalculaPesos(no->NO.NInterno.Esq, N); /* Chamada recursivamente para o nó à esquerda */
+
+    if (ConfereTipoNo(no)) { /* Se for nó externo, o nó deve ser impresso */
+        d = no->NO.NExterno.Lista.tamanho; /* O tamanho da lista representa a quantidade de documentos que possuem a palavra k */
+        celula = no->NO.NExterno.Lista.primeiro->prox; /* Variável celula passa a apontar para a primeira célula da lista */
+        while (celula != NULL) {
+            celula->item.it.termo.peso =  (float)((celula->item.it.termo.qtde) * (log10(N) / d));
+            celula = celula->prox;
+        }
+        return;
+    }
+    if(!ConfereTipoNo(no)) /* Se for nó interno */
+        CalculaPesos(no->NO.NInterno.Dir, N); /* Chamada recursivamente para o nó à direita */
+}
+
+void CalculaTermosDistintos (TipoPatNo *no, TCelula *arq, int idDoc) {
+    TCelula *celula;
+
+    if (no == NULL)
+        return;
+
+    if(!ConfereTipoNo(no))
+        CalculaTermosDistintos(no->NO.NInterno.Esq, arq, idDoc);
+
+    if (ConfereTipoNo(no)) {
+        celula = no->NO.NExterno.Lista.primeiro->prox;
+        while (celula != NULL) {
+            if (celula->item.it.termo.idDoc == idDoc) {
+                arq->item.it.arq.termos_distintos++;
+                break;
+            }
+            celula = celula->prox;
+        }
+        return;
+    }
+
+    if(!ConfereTipoNo(no))
+        CalculaTermosDistintos(no->NO.NInterno.Dir, arq, idDoc);
 }
 
 void MontaIndiceInvertido (TLista *ListaArquivos) {
@@ -64,17 +115,19 @@ void MontaIndiceInvertido (TLista *ListaArquivos) {
             }
             string[i] = '\0'; /* Adiciona '\0' indicando o fim da string */
             strlwr(string); /* Transforma todas as letras da string em letras minúsculas */
-            printf("string: %s\n", string);
             /* Condição para não inserir uma string vazia nas árvores */
             if (strlen(string) > 0) {
                 raizPat = InserePatricia(string, &raizPat, idDoc); /* Insere na Patricia */
                 insereTST(&raizTST, string); /* Insere na TST */
             }
         }
+        celula->item.it.arq.idDoc = idDoc;
+        CalculaTermosDistintos(raizPat, celula, celula->item.it.arq.idDoc); /* Calcula termos distintos do documento atual */
+        printf("\nQuantidade de termos distintos do documento %d: %d\n", celula->item.it.arq.idDoc, celula->item.it.arq.termos_distintos);
         idDoc++; /* Incrementa o id do documento da lista */
         celula = celula->prox; /* Passa para a próxima célula */
     }
-    CalculaPeso(raizPat, ListaArquivos->tamanho); /* Calcula o peso de todos os termos inseridos na árvore Patricia */
+    CalculaPesos(raizPat, ListaArquivos->tamanho); /* Calcula o peso de todos os termos inseridos na árvore Patricia */
     printf("\nPatricia Final\n");
     imprimePatricia(raizPat);
 }
