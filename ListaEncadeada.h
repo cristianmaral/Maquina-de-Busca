@@ -17,9 +17,12 @@ typedef struct {
         struct {
             /* Variáveis quando estamos tratando de uma Lista de Arquivos */
             FILE *entrada; /* Variável utilizada apenas quando estamos tratando de uma Lista de Arquivos */
+	    int termos_distintos;
+	    int idDoc;
+	    float relevancia;
             char nome_arquivo[50]; /* String utilizada para guardar o nome do arquivo */
         } arq;
-    } it;
+    };
 } TItem;
 
 /* Estrutura de uma célula */
