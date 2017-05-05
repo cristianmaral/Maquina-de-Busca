@@ -22,7 +22,7 @@ typedef struct {
             int idDoc;
             float relevancia; /* Relevancia do documento de acordo com uma busca */
         } arq;
-    } it;
+    };
 } TItem;
 
 /* Estrutura de uma célula */

@@ -20,12 +20,12 @@ void AdicionaArquivo (TLista *ListaArquivos) {
     TItem item;
 
     printf("Entre com o nome do arquivo que voce deseja adicionar: ");
-    scanf("%s", item.it.arq.nome_arquivo);
-    item.it.arq.entrada = fopen(item.it.arq.nome_arquivo, "r");
-    if (item.it.arq.entrada) {
+    scanf("%s", item.arq.nome_arquivo);
+    item.arq.entrada = fopen(item.arq.nome_arquivo, "r");
+    if (item.arq.entrada) {
         printf("Arquivo válido\n");
-        item.it.arq.termos_distintos = 0;
-        item.it.arq.relevancia = (float)0;
+        item.arq.termos_distintos = 0;
+        item.arq.relevancia = (float)0;
         insereLista(ListaArquivos, &item);
     }
     else
@@ -36,7 +36,7 @@ void FechaArquivos (TLista *ListaArquivos) {
     TCelula *celula;
     celula = ListaArquivos->primeiro->prox;
     while (celula != NULL) {
-        fclose(celula->item.it.arq.entrada);
+        fclose(celula->item.arq.entrada);
         celula = celula->prox;
     }
 }
@@ -55,7 +55,7 @@ void CalculaPesos (TipoPatNo *no, int N) {
         d = no->NO.NExterno.Lista.tamanho; /* O tamanho da lista representa a quantidade de documentos que possuem a palavra k */
         celula = no->NO.NExterno.Lista.primeiro->prox; /* Variável celula passa a apontar para a primeira célula da lista */
         while (celula != NULL) {
-            celula->item.it.termo.peso =  (float)((celula->item.it.termo.qtde) * (log10(N) / d));
+            celula->item.termo.peso =  (float)((celula->item.termo.qtde) * (log10(N) / d));
             celula = celula->prox;
         }
         return;
@@ -76,8 +76,8 @@ void CalculaTermosDistintos (TipoPatNo *no, TCelula *arq, int idDoc) {
     if (ConfereTipoNo(no)) {
         celula = no->NO.NExterno.Lista.primeiro->prox;
         while (celula != NULL) {
-            if (celula->item.it.termo.idDoc == idDoc) {
-                arq->item.it.arq.termos_distintos++;
+            if (celula->item.termo.idDoc == idDoc) {
+                arq->item.arq.termos_distintos++;
                 break;
             }
             celula = celula->prox;
@@ -148,7 +148,7 @@ void BuscaTermos (TipoPatNo *no, TLista *ListaArquivos, char *string) {
 
 void MontaIndiceInvertido (TLista *ListaArquivos, char *aux) {
     TipoPatNo *raizPat;
-    TipoTSTNo *raizTST;
+    No *raizTST;
     TCelula *celula; /* Célula auxiliar para percorrer toda a Lista de Arquivos */
     char string[50]; /* String para armazenar cada palavra de um arquivo de entrada */
     int idDoc = 1; /* O idDoc sempre começa como 1 */
@@ -162,13 +162,13 @@ void MontaIndiceInvertido (TLista *ListaArquivos, char *aux) {
 
     while (celula != NULL) {
         /* Enquanto não chegar no final do arquivo */
-        while (!feof(celula->item.it.arq.entrada)) {
+        while (!feof(celula->item.arq.entrada)) {
             i = 0; /* Posição para ser atribuído o caractere c na string */
-            c = fgetc(celula->item.it.arq.entrada);
+            c = fgetc(celula->item.arq.entrada);
             /* Enquanto c for um caractere válido (não especial) */
             while (((c >= 65) && (c <= 90)) || ((c >= 97) && (c <= 122))) {
                 string[i] = c;
-                c = fgetc(celula->item.it.arq.entrada);
+                c = fgetc(celula->item.arq.entrada);
                 i++;
             }
             string[i] = '\0'; /* Adiciona '\0' indicando o fim da string */
@@ -179,9 +179,9 @@ void MontaIndiceInvertido (TLista *ListaArquivos, char *aux) {
                 insereTST(&raizTST, string); /* Insere na TST */
             }
         }
-        celula->item.it.arq.idDoc = idDoc;
-        CalculaTermosDistintos(raizPat, celula, celula->item.it.arq.idDoc); /* Calcula termos distintos do documento atual */
-        printf("\nQuantidade de termos distintos do documento %d: %d\n", celula->item.it.arq.idDoc, celula->item.it.arq.termos_distintos);
+        celula->item.arq.idDoc = idDoc;
+        CalculaTermosDistintos(raizPat, celula, celula->item.arq.idDoc); /* Calcula termos distintos do documento atual */
+        printf("\nQuantidade de termos distintos do documento %d: %d\n", celula->item.arq.idDoc, celula->item.arq.termos_distintos);
         idDoc++; /* Incrementa o id do documento da lista */
         celula = celula->prox; /* Passa para a próxima célula */
     }

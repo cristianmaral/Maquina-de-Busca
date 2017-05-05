@@ -34,10 +34,9 @@ TipoPatNo* CriaNoInt (short i, TipoPatNo **Esq,  TipoPatNo **Dir, char Caractere
 TipoPatNo * CriaNoExt (char *k, int idDoc) {
     TipoPatNo *no;
     TItem item; /* Criação de um item temporário (auxiliar) para ser inserido na lista */
-
-    item.it.termo.qtde = 1; /* Quando é a primeira palavra ocorrente no idDoc, sua quantidade é 1 */
-    item.it.termo.idDoc = idDoc;
-    item.it.termo.peso = (float)0; /* Valor inicial do peso da palavra no idDoc */
+    item.termo.qtde = 1; /* Quando é a primeira palavra ocorrente no idDoc, sua quantidade é 1 */
+    item.termo.idDoc = idDoc;
+    item.termo.peso = 0.0; /* Valor inicial do peso da palavra no idDoc */
 
     no = (TipoPatNo *)malloc(sizeof(TipoPatNo));
     no->nt = Externo;
@@ -58,9 +57,9 @@ float RetornaPesoTermo (char *k, TipoPatNo *t, int idDoc) {
         celula = t->NO.NExterno.Lista.primeiro->prox; /* Passa a apontar para a primeira célula da lista */
         if (strcmp(k, t->NO.NExterno.Palavra) == 0){ /* Se a palavra k procurada for igual à palavra do nó externo */
             while(celula != NULL){
-                if(celula->item.it.termo.idDoc == idDoc) {/* Confere se a palavra se encontra no idDoc procurado */
+                if(celula->item.termo.idDoc == idDoc) {/* Confere se a palavra se encontra no idDoc procurado */
                     /* Achou a palavra k no dado idDoc */
-                    return celula->item.it.termo.peso;
+                    return celula->item.termo.peso;
                 }
                 else
                     celula = celula->prox; /* Procura na próxima célula da lista */
@@ -138,18 +137,18 @@ TipoPatNo * InserePatricia (char *k, TipoPatNo **t, int idDoc) {
         if (strcmp(p->NO.NExterno.Palavra, k) == 0) {
             celula = p->NO.NExterno.Lista.primeiro->prox;
             /* Procura uma célula que tenha o idDoc passado como parâmetro */
-            while(celula->prox != NULL && celula->item.it.termo.idDoc != idDoc)
+            while(celula->prox != NULL && celula->item.termo.idDoc != idDoc)
                 celula = celula->prox;
                 /* Se foi encontrada uma célula cujo idDoc seja igual ao idDoc passado como parâmetro */
-                if(celula->item.it.termo.idDoc == idDoc)
-                    celula->item.it.termo.qtde++; /* Incrementa a quantidade de ocorrências da palavra k */
+                if(celula->item.termo.idDoc == idDoc)
+                    celula->item.termo.qtde++; /* Incrementa a quantidade de ocorrências da palavra k */
 
                 /* Caso contrário - Se não existir nenhuma célula da palavra k com o idDoc passado como parâmetro */
                 else {
                     /* Cria uma nova célula com a palavra k cujo campo idDoc seja o idDoc passado como parâmetro */
-                    item.it.termo.idDoc = idDoc;
-                    item.it.termo.qtde = 1;
-                    item.it.termo.peso = 0;
+                    item.termo.idDoc = idDoc;
+                    item.termo.qtde = 1;
+                    item.termo.peso = 0;
                     insereLista(&(p->NO.NExterno.Lista), &item); /* Insere a célula na lista */
                 }
             return (*t);
