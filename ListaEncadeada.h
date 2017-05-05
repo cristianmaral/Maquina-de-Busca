@@ -18,17 +18,17 @@ typedef struct {
             /* Variáveis quando estamos tratando de uma Lista de Arquivos */
             FILE *entrada; /* Variável utilizada apenas quando estamos tratando de uma Lista de Arquivos */
             char nome_arquivo[50]; /* String utilizada para guardar o nome do arquivo */
+            int termos_distintos;
+            int idDoc;
+            float relevancia; /* Relevancia do documento de acordo com uma busca */
         } arq;
     } it;
 } TItem;
 
 /* Estrutura de uma célula */
 typedef struct Celula {
-	union{
-		char* palavra;
-		TItem item;
-	};
-	struct Celula *prox;
+    TItem item; /* Um item */
+    struct Celula *prox; /* Ponteiro para a próxima célula */
 } TCelula;
 
 /* Estrutura da Lista Encadeada */
@@ -40,7 +40,6 @@ typedef struct {
 
 void inicializaLista (TLista *Lista);
 void insereLista (TLista *Lista, TItem *item);
-void insereCelulaEmLista (TLista *Lista, TCelula *celula);
 void imprimeLista(TLista *Lista);
-void imprimeListaDePalavras (TLista *Lista);
+
 #endif // LISTAENCADEADA_H_INCLUDED
