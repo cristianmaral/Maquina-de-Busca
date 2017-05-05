@@ -41,4 +41,7 @@ TipoPatNo* InserePatricia (char *k, TipoPatNo **t, int idDoc); /* A função Ins
 
 void imprimePatricia (TipoPatNo *no);
 
+/* Funções da Máquina de Buscas */
+void CalculaPeso (TipoPatNo *t, int N);
+
 #endif // PATRICIA_H_INCLUDED
