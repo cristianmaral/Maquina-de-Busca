@@ -1,5 +1,4 @@
 #include "Patricia.h"
-#include "ListaEncadeada.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
