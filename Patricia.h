@@ -33,7 +33,7 @@ short ConfereTipoNo (TipoPatNo *no);
 TipoPatNo* CriaNoInt (short i, TipoPatNo **Esq,  TipoPatNo **Dir, char  Caractere);
 TipoPatNo* CriaNoExt (char *k, int idDoc);
 
-void PesquisaPatricia (char *k, TipoPatNo *t, int idDoc);
+float RetornaPesoTermo (char *k, TipoPatNo *t, int idDoc);
 
 /* Funções para inserir uma palavra na árvore Patricia */
 TipoPatNo* InsereEntre (char *k, TipoPatNo **t, short i, int idDoc, char Caractere);
