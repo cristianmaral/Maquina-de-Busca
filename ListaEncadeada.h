@@ -1,35 +1,42 @@
-#include "ListaEncadeada.h"
-#include <stdlib.h>
+#ifndef LISTAENCADEADA_H_INCLUDED
+#define LISTAENCADEADA_H_INCLUDED
 
-/* Inicializa uma lista - já alocando a célula cabeça */
-void inicializaLista (TLista *Lista) {
-    Lista->primeiro = Lista->ultimo = (TCelula *)malloc(sizeof(TCelula));
-    Lista->primeiro->prox = NULL;
-    Lista->tamanho = 0;
-}
+#include <stdio.h>
 
-/* Insere um item na lista */
-void insereLista (TLista *Lista, TItem *item) {
-    TCelula *aux;
-    aux = (TCelula *)malloc(sizeof(TCelula));
-    aux->item = *item;
-    Lista->ultimo->prox = aux;
-    Lista->ultimo = aux;
-    Lista->tamanho++;
-}
+/* Estrutura de um item - Utilizamos union para diferenciar um item da árvore Patricia de um item da Lista de Arquivos */
+typedef struct {
+    union {
+        /* Estrutura de um item - Nó externo Patricia */
+        struct {
+            int qtde; /* Quantidade de ocorrências de um termo */
+            int idDoc; /* Identificação do documento */
+            float peso; /* Peso do termo */
+        } termo;
 
-/* Imprime o par ordenado (qtde,idDoc) */
-void imprimeLista (TLista *Lista) {
-    TCelula *aux;
-    aux = Lista->primeiro->prox;
+        /* Estrutura de um item - Lista de Arquivos */
+        struct {
+            /* Variáveis quando estamos tratando de uma Lista de Arquivos */
+            FILE *entrada; /* Variável utilizada apenas quando estamos tratando de uma Lista de Arquivos */
+            char nome_arquivo[50]; /* String utilizada para guardar o nome do arquivo */
+        } arq;
+    } it;
+} TItem;
 
-    while (aux != NULL) {
-        if(aux->prox == NULL)
-            printf("<%d,%d>\n", aux->item.it.termo.qtde, aux->item.it.termo.idDoc);
-        /* Imprime "->" no final do par ordenado */
-        else
-            printf("<%d,%d> -> ", aux->item.it.termo.qtde, aux->item.it.termo.idDoc);
+/* Estrutura de uma célula */
+typedef struct Celula {
+    TItem item; /* Um item */
+    struct Celula *prox; /* Ponteiro para a próxima célula */
+} TCelula;
 
-        aux = aux->prox;
-    }
-}
+/* Estrutura da Lista Encadeada */
+typedef struct {
+    TCelula *primeiro; /* Ponteiro para a célula cabeça  */
+    TCelula *ultimo; /* Ponteiro para a última célula da lista */
+    int tamanho; /* Tamanho da lista */
+} TLista;
+
+void inicializaLista (TLista *Lista);
+void insereLista (TLista *Lista, TItem *item);
+void imprimeLista(TLista *Lista);
+
+#endif // LISTAENCADEADA_H_INCLUDED
