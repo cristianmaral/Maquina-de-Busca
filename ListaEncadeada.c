@@ -1,5 +1,4 @@
 #include "ListaEncadeada.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 /* Inicializa uma lista - já alocando a célula cabeça */
@@ -21,6 +20,7 @@ void insereLista (TLista *Lista, TItem *item) {
     aux->item = *item;
     Lista->ultimo->prox = aux;
     Lista->ultimo = aux;
+    Lista->tamanho++;
 }
 
 /* Imprime as palavras contidas na lista */
@@ -45,10 +45,10 @@ void imprimeLista (TLista *Lista) {
 
     while (aux != NULL) {
         if(aux->prox == NULL)
-            printf("<%d,%d>\n", aux->item.qtde, aux->item.idDoc);
+            printf("<%d,%d>\n", aux->item.it.termo.qtde, aux->item.it.termo.idDoc);
         /* Imprime "->" no final do par ordenado */
         else
-            printf("<%d,%d> -> ", aux->item.qtde, aux->item.idDoc);
+            printf("<%d,%d> -> ", aux->item.it.termo.qtde, aux->item.it.termo.idDoc);
 
         aux = aux->prox;
     }
