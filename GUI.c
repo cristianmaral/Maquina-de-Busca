@@ -38,7 +38,7 @@ void gtkMain(int argc, char *argv[]){
 	widgets.search_title = GTK_LABEL(gtk_builder_get_object(gtkBuilder, "search_title"));
 	widgets.search_closebutton_image = GTK_IMAGE(gtk_builder_get_object(gtkBuilder, "search_closebutton_image"));
 		//end search_header
-	widgets.search_inner_box = GTK_BOX(gtk_builder_get_object(gtkBuilder, "search_inner_box"));
+	widgets.search_inner_box = GTK_SCROLLED_WINDOW(gtk_builder_get_object(gtkBuilder, "search_inner_box"));
 		//begin search_inner_box
 	widgets.search_lista_viewer = GTK_TREE_VIEW(gtk_builder_get_object(gtkBuilder, "search_lista_viewer"));
 			//begin search_lista_viewer
@@ -46,7 +46,6 @@ void gtkMain(int argc, char *argv[]){
 	widgets.NomeDocumento = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "NomeDocumento"));
 	widgets.NRecorrencias = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "NRecorrencias"));
 			//end search_lista_viewer
-	widgets.search_scrollbar = GTK_SCROLLBAR(gtk_builder_get_object(gtkBuilder, "search_scrollbar"));
 		//end search_inner_box
 	//inside index_box
 	widgets.index_header = GTK_HEADER_BAR(gtk_builder_get_object(gtkBuilder, "index_header"));
@@ -60,7 +59,7 @@ void gtkMain(int argc, char *argv[]){
 	widgets.index_pageupbutton_image = GTK_IMAGE(gtk_builder_get_object(gtkBuilder, "index_pageupbutton_image"));
 	widgets.index_closebutton_image = GTK_IMAGE(gtk_builder_get_object(gtkBuilder, "index_closebutton_image"));
 		//end index_header
-	widgets.index_inner_box = GTK_BOX(gtk_builder_get_object(gtkBuilder, "index_inner_box"));
+	widgets.index_inner_box = GTK_SCROLLED_WINDOW(gtk_builder_get_object(gtkBuilder, "index_inner_box"));
 		//begin index_inner_box
 	widgets.index_lista_viewer = GTK_TREE_VIEW(gtk_builder_get_object(gtkBuilder, "index_lista_viewer"));
 			//begin index_lista_viewer
@@ -70,7 +69,6 @@ void gtkMain(int argc, char *argv[]){
 	widgets.index_lista_colunaArquivo2 = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "index_lista_colunaArquivo2"));
 	widgets.index_lista_colunaArquivo3 = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "index_lista_colunaArquivo3"));
 			//end index_lista_viewer
-	widgets.index_scrollbar = GTK_SCROLLBAR(gtk_builder_get_object(gtkBuilder, "index_scrollbar"));
 		//end index_inner_box
 	//inside files_box
 	widgets.files_header = GTK_HEADER_BAR(gtk_builder_get_object(gtkBuilder, "files_header"));
@@ -80,23 +78,31 @@ void gtkMain(int argc, char *argv[]){
 	widgets.files_closebutton_image = GTK_IMAGE(gtk_builder_get_object(gtkBuilder, "files_closebutton_image"));
 	widgets.files_title = GTK_LABEL(gtk_builder_get_object(gtkBuilder, "files_title"));
 		//end files_header
-	widgets.files_innerupper_box = GTK_BOX(gtk_builder_get_object(gtkBuilder, "files_innerupper_box"));
+	widgets.files_innerupper_box = GTK_SCROLLED_WINDOW(gtk_builder_get_object(gtkBuilder, "files_innerupper_box"));
 		//begin files_innerupper_box
 	widgets.files_lista_viewer = GTK_TREE_VIEW(gtk_builder_get_object(gtkBuilder, "files_lista_viewer"));
 			//begin files_lista_viewer
 	widgets.files_treeview_selection = GTK_TREE_SELECTION(gtk_builder_get_object(gtkBuilder, "files_treeview_selection"));
 	widgets.NomeDoArquivo = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "NomeDoArquivo"));
 	widgets.CaminhoDoArquivo = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "CaminhoDoArquivo"));
-	widgets.Remover = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "Remover"));
+	widgets.NomeDoArquivo_textrenderer = GTK_CELL_RENDERER_TEXT(gtk_builder_get_object(gtkBuilder, "NomeDoArquivo_textrenderer"));
+	widgets.CaminhoDoArquivo_textrenderer = GTK_CELL_RENDERER_TEXT(gtk_builder_get_object(gtkBuilder, "CaminhoDoArquivo_textrenderer"));
 			//end files_lista_viewer
-	widgets.files_scrollbar = GTK_SCROLLBAR(gtk_builder_get_object(gtkBuilder, "files_scrollbar"));
 		//end files_innerupper_box
 	widgets.files_innerlower_box = GTK_BOX(gtk_builder_get_object(gtkBuilder, "files_innerlower_box"));
 		//begin files_innerlower_box
 	widgets.files_filechooserbutton = GTK_FILE_CHOOSER_BUTTON(gtk_builder_get_object(gtkBuilder, "files_filechooserbutton"));
 	widgets.files_addbutton = GTK_BUTTON(gtk_builder_get_object(gtkBuilder, "files_addbutton"));
+	widgets.files_rembutton = GTK_BUTTON(gtk_builder_get_object(gtkBuilder, "files_rembutton"));
 		//end files_innerlower_box
 	//Helper Widgets
+	widgets.files_scrollbar_config = GTK_ADJUSTMENT(gtk_builder_get_object(gtkBuilder, "files_scrollbar_config"));
+	widgets.index_scrollbar_config = GTK_ADJUSTMENT(gtk_builder_get_object(gtkBuilder, "index_scrollbar_config"));
+	widgets.search_scrollbar_config = GTK_ADJUSTMENT(gtk_builder_get_object(gtkBuilder, "search_scrollbar_config"));
+
+	widgets.agrupamento_tamanho_telas = GTK_SIZE_GROUP(gtk_builder_get_object(gtkBuilder, "agrupamento_tamanho_telas"));
+	widgets.entrycompletion = GTK_ENTRY_COMPLETION(gtk_builder_get_object(gtkBuilder, "entrycompletion"));
+	widgets.main_lista_completion = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "main_lista_completion"));
 	widgets.files_lista_dados = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "files_lista_dados"));
 	widgets.index_lista_dados = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "index_lista_dados"));
 	widgets.search_lista_dados = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "search_lista_dados"));
@@ -137,15 +143,23 @@ void gtkMain(int argc, char *argv[]){
 	
 
 	/* Fazendo ligações com as entradas do glade */
+	GtkTreeIter iter;
+	widgets.iter = &iter;
 	
 	/* Conectando os sinais */
 	gtk_builder_connect_signals(gtkBuilder, &widgets);
 	
 	/* Destruindo o builder, já que não precisamos mais dele */
 	g_object_unref(G_OBJECT(gtkBuilder));
+
+	gtk_entry_completion_set_match_func(widgets.entrycompletion,func,NULL,NULL);
+	gtk_entry_completion_set_minimum_key_length(widgets.entrycompletion,0);
 	
 	/* Mostra a interface do glade */
 	gtk_widget_show(GTK_WIDGET(widgets.MainWindow));
 	
 	gtk_main();
+}
+gboolean func(GtkEntryCompletion *completion,const gchar *key,GtkTreeIter *iter,gpointer user_data){
+	return TRUE;
 }
