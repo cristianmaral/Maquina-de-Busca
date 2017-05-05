@@ -91,7 +91,6 @@
       </object>
     </child>
   </object>
-  <object class="GtkEntryCompletion" id="entrycompletion"/>
   <object class="GtkListStore" id="files_lista_dados">
     <columns>
       <!-- column-name NomeDoArquivo -->

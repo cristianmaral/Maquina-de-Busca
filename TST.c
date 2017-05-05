@@ -43,34 +43,38 @@ void insereTST(No** no, char *palavra)
 }
 
 /* Uma função recursiva para percorrer a TST */
-void percorre (No* no, char* palavra,char *prefixo, int indice)
+void percorre (No* no, char* palavra,char *prefixo, int indice,TLista *retorno)
 {
+    TCelula *temp = (TCelula*)malloc(sizeof(TCelula));
+    temp->prox = NULL;
+    temp->palavra = (char*)malloc(sizeof(char)*40);
     if (no)
     {
         /* Primeiro percorre a subárvore à esquerda */
-        percorre(no->esq, palavra, prefixo, indice);
+        percorre(no->esq, palavra, prefixo, indice, retorno);
 
         /* Guarda o caractere deste nó na string palavra*/
         palavra[indice] = no->caractere;
         if (no->fimString)
         {
             palavra[indice+1] = '\0';
-            printf("%s%s\n",prefixo,palavra);
+	    sprintf(temp->palavra,"%s%s",prefixo,palavra);
+	    insereCelulaEmLista(retorno,temp);
         }
 
         /* Percorre a subárvore usando o ponteiro do meio (subárvore do meio) */
-        percorre(no->meio, palavra, prefixo, indice + 1);
+        percorre(no->meio, palavra, prefixo, indice + 1,retorno);
 
         /* Finalmente percorre a subárvore à direita */
-        percorre(no->dir, palavra, prefixo, indice);
+        percorre(no->dir, palavra, prefixo, indice, retorno);
     }
 }
 
 /* Função principal que encapsula a função transverseTSTUtil */
-void percorreTST(No* no, char *prefixo)
+void percorreTST(No* no, char *prefixo,TLista *retorno)
 {
     char palavra[MAXTAM]; // MAXTAM definido como 50
-    percorre(no, palavra, prefixo, 0);
+    percorre(no, palavra, prefixo, 0, retorno);
 }
 
 /* Função para pesquisar uma palavra na TST */
@@ -100,20 +104,20 @@ int pesquisaTST(No *no, char *palavra)
     }
 }
 /* Função responsavel por encontrar posicao de possiveis palavras para o prefixo */
-void AutoPreenchimentoTST(No *no, int indice, char *prefixo){
+void AutoPreenchimentoTST(No *no, int indice, char *prefixo, TLista *retorno){
     if(!no) return;
     if (prefixo[indice] < (no)->caractere)
-	AutoPreenchimentoTST(no->esq,indice,prefixo);
+	AutoPreenchimentoTST(no->esq,indice,prefixo,retorno);
 
     else if (prefixo[indice] > (no)->caractere)
-	AutoPreenchimentoTST(no->dir,indice,prefixo);
+	AutoPreenchimentoTST(no->dir,indice,prefixo,retorno);
     else
     {
 	if(prefixo[indice+1] == '\0'){
-		percorreTST(no->meio,prefixo);
+		percorreTST(no->meio,prefixo,retorno);
 	}
 	else
-		AutoPreenchimentoTST(no->meio,indice+1,prefixo);
+		AutoPreenchimentoTST(no->meio,indice+1,prefixo,retorno);
     }
 }
 

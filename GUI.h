@@ -77,7 +77,8 @@ typedef struct {
 		//end files_innerlower_box
 	//Helper Widgets
 	GtkSizeGroup *agrupamento_tamanho_telas;
-	GtkEntryCompletion *entrycompletion;
+	//GtkEntryCompletion *entrycompletion;
+	//GtkListStore *main_lista_completion;
 	GtkListStore *files_lista_dados, *index_lista_dados, *search_lista_dados, *selecionador_combobox_extensao_dados;
 	GtkFileChooserDialog *SelecionadorDeArquivo;
 		//begin SelecionadorDeArquivo

@@ -4,15 +4,18 @@
 #include <string.h>
 //inside main_box signals
 void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets){
-	int i,j = 0;;
+	TLista palavras;
+	inicializaLista(&palavras);
+	int i,j = 0;
 	const gchar* text = gtk_entry_get_text(GTK_ENTRY(entry));
 	if(strcmp((char*)text,"") != 0){
 		for (i = 0; text[i] != '\0'; i++) {
-			if(text[i] == ' '){ 
+			if(text[i] == ' '){ 	//capturar começo da ultima palavra
 				j = i+1;
 			}
 		}
-		AutoPreenchimentoTST(raiz,0,((char*)text) + j);
+		AutoPreenchimentoTST(raiz,0,((char*)text) + j,&palavras);
+		imprimeListaDePalavras(&palavras);
 	}
 }
 void goMainWindow (GtkButton *button, Widgets *widgets){
