@@ -60,7 +60,7 @@ void splitPath(gchar *filepath,gchar **filename){
 }
 void remFile (GtkButton *button, Widgets *widgets){
 	if(gtk_tree_selection_get_selected(widgets->files_treeview_selection,NULL,widgets->iter)){
-		printf("Tem algo selecionado!\n");
+		gtk_list_store_remove(widgets->files_lista_dados,widgets->iter);
 		//Há algo selecionado
 		return;
 	}
