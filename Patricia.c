@@ -37,7 +37,7 @@ TipoPatNo * CriaNoExt (char *k, int idDoc) {
 
     item.it.termo.qtde = 1; /* Quando é a primeira palavra ocorrente no idDoc, sua quantidade é 1 */
     item.it.termo.idDoc = idDoc;
-    item.it.termo.peso = 0; /* Valor inicial do peso da palavra no idDoc */
+    item.it.termo.peso = (float)0; /* Valor inicial do peso da palavra no idDoc */
 
     no = (TipoPatNo *)malloc(sizeof(TipoPatNo));
     no->nt = Externo;
@@ -49,8 +49,8 @@ TipoPatNo * CriaNoExt (char *k, int idDoc) {
     return no;
 }
 
-/* Função para pesquisar se uma palavra k se encontra na árvore com seu respectivo idDoc */
-void PesquisaPatricia (char *k, TipoPatNo *t, int idDoc) {
+/* Função para retornar o peso do termo k no idDoc passado como parâmetro */
+float RetornaPesoTermo (char *k, TipoPatNo *t, int idDoc) {
     TCelula *celula; /* Célula auxiliar para percorrer a lista do nó externo encontrado */
 
     if (ConfereTipoNo(t)) /* Se o nó for externo */
@@ -60,28 +60,25 @@ void PesquisaPatricia (char *k, TipoPatNo *t, int idDoc) {
             while(celula != NULL){
                 if(celula->item.it.termo.idDoc == idDoc) {/* Confere se a palavra se encontra no idDoc procurado */
                     /* Achou a palavra k no dado idDoc */
-                    printf("A palavra %s, cujo idDoc é %d se encontra na arvore\n", t->NO.NExterno.Palavra, celula->item.it.termo.idDoc);
-                    return;
+                    return celula->item.it.termo.peso;
                 }
                 else
                     celula = celula->prox; /* Procura na próxima célula da lista */
             }
             if(celula == NULL) { /* Chegou na última célula e não encontrou a palavra com o dado idDoc */
-                printf("A palavra %s nao se encontra no idDoc procurado\n", k);
-                return;
+                return (float)0;
             }
         }
         else { /* Não encontrou a palavra na árvore */
-            printf("A palavra %s nao se encontra na arvore\n", k);
-            return;
+            return (float)0;
         }
     }
     /* Se k[t->NO.NInterno.Index] for <= ao caractere do nó interno atual, chama recursivamente para o nó à esquerda */
     if (ComparaChar(k[t->NO.NInterno.Index], t->NO.NInterno.Caractere))
-        PesquisaPatricia(k, t->NO.NInterno.Esq, idDoc);
+        return RetornaPesoTermo(k, t->NO.NInterno.Esq, idDoc);
     /* Caso contrário, chama recursivamente para o nó à direita */
     else
-        PesquisaPatricia(k, t->NO.NInterno.Dir, idDoc);
+        return RetornaPesoTermo(k, t->NO.NInterno.Dir, idDoc);
 
 }
 
