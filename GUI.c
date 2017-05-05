@@ -85,13 +85,15 @@ void gtkMain(int argc, char *argv[]){
 	widgets.files_treeview_selection = GTK_TREE_SELECTION(gtk_builder_get_object(gtkBuilder, "files_treeview_selection"));
 	widgets.NomeDoArquivo = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "NomeDoArquivo"));
 	widgets.CaminhoDoArquivo = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "CaminhoDoArquivo"));
-	widgets.Remover = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "Remover"));
+	widgets.NomeDoArquivo_textrenderer = GTK_CELL_RENDERER_TEXT(gtk_builder_get_object(gtkBuilder, "NomeDoArquivo_textrenderer"));
+	widgets.CaminhoDoArquivo_textrenderer = GTK_CELL_RENDERER_TEXT(gtk_builder_get_object(gtkBuilder, "CaminhoDoArquivo_textrenderer"));
 			//end files_lista_viewer
 		//end files_innerupper_box
 	widgets.files_innerlower_box = GTK_BOX(gtk_builder_get_object(gtkBuilder, "files_innerlower_box"));
 		//begin files_innerlower_box
 	widgets.files_filechooserbutton = GTK_FILE_CHOOSER_BUTTON(gtk_builder_get_object(gtkBuilder, "files_filechooserbutton"));
 	widgets.files_addbutton = GTK_BUTTON(gtk_builder_get_object(gtkBuilder, "files_addbutton"));
+	widgets.files_rembutton = GTK_BUTTON(gtk_builder_get_object(gtkBuilder, "files_rembutton"));
 		//end files_innerlower_box
 	//Helper Widgets
 	widgets.files_scrollbar_config = GTK_ADJUSTMENT(gtk_builder_get_object(gtkBuilder, "files_scrollbar_config"));

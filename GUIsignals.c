@@ -48,8 +48,30 @@ void selecionarArquivo (GtkButton *button, Widgets *widgets){
 void closeProgram (GtkButton *button, Widgets *widgets){
 	gtk_main_quit();
 }
+void splitPath(gchar *filepath,gchar **filename){
+	int i, j;
+	for (i = 0; filepath[i] != '\0'; i++) {
+		if(filepath[i] == '/'){ 	//capturar começo do nome do arquivo
+			j = i+1;
+		}
+	}
+	*filename = filepath + j;
+	
+}
+void remFile (GtkButton *button, Widgets *widgets){
+	if(gtk_tree_selection_get_selected(widgets->files_treeview_selection,NULL,widgets->iter)){
+		printf("Tem algo selecionado!\n");
+		//Há algo selecionado
+		return;
+	}
+	printf("Nao tem algo selecionado!\n");
+}
 void addFile (GtkButton *button, Widgets *widgets){
-	printf("Apertou\n");
+	gchar *filename,*filepath = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(widgets->files_filechooserbutton));
+	splitPath(filepath,&filename);
+	printf("%s em %s\n",filename,filepath);
+	gtk_list_store_append(widgets->files_lista_dados, widgets->iter);
+	gtk_list_store_set(widgets->files_lista_dados, widgets->iter,0,filename,1,filepath,-1);
 }
 void goFilesWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->files_box));
@@ -61,14 +83,7 @@ void goIndexWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->index_box));
 	gint height;
 	gtk_widget_get_preferred_height(GTK_WIDGET(widgets->index_lista_viewer),NULL,&height);
-	gtk_adjustment_configure(widgets->index_scrollbar_config,
-				0.0d,
-				0.0d,
-				100.0d,
-				1.0d,
-				1.0d,
-				height
-				);
+	gtk_adjustment_configure(widgets->index_scrollbar_config,0.0,0.0,100.0,1.0,1.0,height);
 }
 void cancelBuildIndex (GtkButton *button, Widgets *widgets){
 	gtk_widget_hide(GTK_WIDGET(widgets->LoadingWindow));

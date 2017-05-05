@@ -97,8 +97,6 @@
       <column type="gchararray"/>
       <!-- column-name CaminhoDoArquivo -->
       <column type="gchararray"/>
-      <!-- column-name Remover -->
-      <column type="GtkButtonsType"/>
     </columns>
   </object>
   <object class="GtkAdjustment" id="files_scrollbar_config">
@@ -132,7 +130,7 @@
   <object class="GtkEntryCompletion" id="entrycompletion">
     <property name="model">main_lista_completion</property>
     <child>
-      <object class="GtkCellRendererText" id="cellrenderertext1"/>
+      <object class="GtkCellRendererText" id="completion_textrenderer"/>
       <attributes>
         <attribute name="text">0</attribute>
       </attributes>
@@ -628,16 +626,25 @@
                       <object class="GtkTreeViewColumn" id="NomeDoArquivo">
                         <property name="title" translatable="yes">Nome Do Arquivo</property>
                         <property name="expand">True</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="NomeDoArquivo_textrenderer"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
                       </object>
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="CaminhoDoArquivo">
                         <property name="title" translatable="yes">Caminho Do Arquivo</property>
                         <property name="expand">True</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="CaminhoDoArquivo_textrenderer"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
                       </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="Remover"/>
                     </child>
                   </object>
                 </child>
@@ -662,6 +669,23 @@
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="files_rembutton">
+                    <property name="label">gtk-remove</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Adicionar arquivo selecionado</property>
+                    <property name="use_stock">True</property>
+                    <property name="always_show_image">True</property>
+                    <signal name="clicked" handler="remFile" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>

@@ -64,13 +64,14 @@ typedef struct {
 	GtkTreeView *files_lista_viewer;
 			//begin files_lista_viewer
 	GtkTreeSelection *files_treeview_selection;
-	GtkTreeViewColumn *NomeDoArquivo, *CaminhoDoArquivo, *Remover;
+	GtkTreeViewColumn *NomeDoArquivo, *CaminhoDoArquivo;
+	GtkCellRendererText *NomeDoArquivo_textrenderer, *CaminhoDoArquivo_textrenderer;
 			//end files_lista_viewer
 		//end files_innerupper_box
 	GtkBox *files_innerlower_box;
 		//begin files_innerlower_box
 	GtkFileChooserButton *files_filechooserbutton;
-	GtkButton *files_addbutton;
+	GtkButton *files_addbutton, *files_rembutton;
 		//end files_innerlower_box
 	//Helper Widgets
 	GtkAdjustment *files_scrollbar_config;
