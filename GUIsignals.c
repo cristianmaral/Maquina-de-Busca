@@ -4,9 +4,16 @@
 #include <string.h>
 //inside main_box signals
 void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets){
-	const gchar* text=	gtk_entry_get_text(GTK_ENTRY(entry));
-	if(strcmp((char*)text,"") != 0)
-		AutoPreenchimentoTST(raiz,0,(char*)text);
+	int i,j = 0;;
+	const gchar* text = gtk_entry_get_text(GTK_ENTRY(entry));
+	if(strcmp((char*)text,"") != 0){
+		for (i = 0; text[i] != '\0'; i++) {
+			if(text[i] == ' '){ 
+				j = i+1;
+			}
+		}
+		AutoPreenchimentoTST(raiz,0,((char*)text) + j);
+	}
 }
 void goMainWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->main_box));
