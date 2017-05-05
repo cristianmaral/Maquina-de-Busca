@@ -29,14 +29,13 @@ typedef struct {
 	GtkLabel *search_title;
 	GtkImage *search_closebutton_image;
 		//end search_header
-	GtkBox *search_inner_box;
+	GtkScrolledWindow *search_inner_box;
 		//begin search_inner_box
 	GtkTreeView *search_lista_viewer;
 			//begin search_lista_viewer
 	GtkTreeSelection *search_treeview_selection;
 	GtkTreeViewColumn *NomeDocumento, *NRecorrencias;
 			//end search_lista_viewer
-	GtkScrollbar *search_scrollbar;
 		//end search_inner_box
 	//inside index_box
 	GtkHeaderBar *index_header;
@@ -45,14 +44,13 @@ typedef struct {
 	GtkButton *index_backbutton, *index_pagedownbutton, *index_pageupbutton, *index_closebutton;
 	GtkImage *index_pagedownbutton_image, *index_pageupbutton_image, *index_closebutton_image;
 		//end index_header
-	GtkBox *index_inner_box;
+	GtkScrolledWindow *index_inner_box;
 		//begin index_inner_box
 	GtkTreeView *index_lista_viewer;
 			//begin index_lista_viewer
 	GtkTreeSelection *index_treeview_selection;
 	GtkTreeViewColumn *index_lista_colunaPalavra,*index_lista_colunaArquivo1,*index_lista_colunaArquivo2,*index_lista_colunaArquivo3;
 			//end index_lista_viewer
-	GtkScrollbar *index_scrollbar;
 		//end index_inner_box
 	//inside files_box
 	GtkHeaderBar *files_header;
@@ -61,14 +59,13 @@ typedef struct {
 	GtkImage *files_closebutton_image;
 	GtkLabel *files_title;
 		//end files_header
-	GtkBox *files_innerupper_box;
+	GtkScrolledWindow *files_innerupper_box;
 		//begin files_innerupper_box
 	GtkTreeView *files_lista_viewer;
 			//begin files_lista_viewer
 	GtkTreeSelection *files_treeview_selection;
 	GtkTreeViewColumn *NomeDoArquivo, *CaminhoDoArquivo, *Remover;
 			//end files_lista_viewer
-	GtkScrollbar *files_scrollbar;
 		//end files_innerupper_box
 	GtkBox *files_innerlower_box;
 		//begin files_innerlower_box
@@ -76,6 +73,9 @@ typedef struct {
 	GtkButton *files_addbutton;
 		//end files_innerlower_box
 	//Helper Widgets
+	GtkAdjustment *files_scrollbar_config;
+	GtkAdjustment *index_scrollbar_config;
+	GtkAdjustment *search_scrollbar_config;
 	GtkSizeGroup *agrupamento_tamanho_telas;
 	GtkEntryCompletion *entrycompletion;
 	GtkListStore *main_lista_completion;

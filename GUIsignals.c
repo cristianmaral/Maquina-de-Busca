@@ -59,6 +59,16 @@ void buildIndex (GtkButton *button, Widgets *widgets){
 }
 void goIndexWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->index_box));
+	gint height;
+	gtk_widget_get_preferred_height(GTK_WIDGET(widgets->index_lista_viewer),NULL,&height);
+	gtk_adjustment_configure(widgets->index_scrollbar_config,
+				0.0d,
+				0.0d,
+				100.0d,
+				1.0d,
+				1.0d,
+				height
+				);
 }
 void cancelBuildIndex (GtkButton *button, Widgets *widgets){
 	gtk_widget_hide(GTK_WIDGET(widgets->LoadingWindow));
