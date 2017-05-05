@@ -25,6 +25,7 @@ void AdicionaArquivo (TLista *ListaArquivos) {
     if (item.arq.entrada) {
         printf("Arquivo válido\n");
         item.arq.termos_distintos = 0;
+        item.arq.relevancia = (float)0;
         insereLista(ListaArquivos, &item);
     }
     else
@@ -50,7 +51,7 @@ void CalculaPesos (TipoPatNo *no, int N) {
     if(!ConfereTipoNo(no)) /* Se for nó interno */
         CalculaPesos(no->NO.NInterno.Esq, N); /* Chamada recursivamente para o nó à esquerda */
 
-    if (ConfereTipoNo(no)) { /* Se for nó externo, o nó deve ser impresso */
+    if (ConfereTipoNo(no)) { /* Se for nó externo */
         d = no->NO.NExterno.Lista.tamanho; /* O tamanho da lista representa a quantidade de documentos que possuem a palavra k */
         celula = no->NO.NExterno.Lista.primeiro->prox; /* Variável celula passa a apontar para a primeira célula da lista */
         while (celula != NULL) {
@@ -88,7 +89,64 @@ void CalculaTermosDistintos (TipoPatNo *no, TCelula *arq, int idDoc) {
         CalculaTermosDistintos(no->NO.NInterno.Dir, arq, idDoc);
 }
 
-void MontaIndiceInvertido (TLista *ListaArquivos) {
+void CalculaRelevancia (TipoPatNo *no, TLista *ListaArquivos, char **palavras, int n_termos) {
+    float somatorio = (float)0;
+    int i;
+    TCelula *celula;
+
+    celula = ListaArquivos->primeiro->prox;
+    while (celula != NULL) {
+        for (i=0; i<n_termos; i++) {
+            somatorio += RetornaPesoTermo(palavras[i], no, celula->item.it.arq.idDoc);
+        }
+        celula->item.it.arq.relevancia = (float)(somatorio / celula->item.it.arq.termos_distintos);
+        celula = celula->prox;
+        somatorio = (float)0;
+    }
+
+}
+
+void BuscaTermos (TipoPatNo *no, TLista *ListaArquivos, char *string) {
+    int q_termos = 0; /* Conta a quantidade de termos de busca */
+    char aux[50]; /* String auxiliar para guardar temporariamente cada palavra de busca separadamente */
+    char *palavras[30]; /* Vetor de Strings - Consideramos o máximo de 30 palavras de busca */
+    char c; /* Caractere auxiliar para ler caractere por caractere da string que contém todas as palavras de busca */
+    int i = 0; /* Indica a posição onde c deve ser armazenado na string aux */
+    int j = 0; /* Indica a posição onde a string aux deve ser armazenada no vetor palavras */
+    int cont = 0; /* Indica a posição atual da string que contém todas as palavras de busca */
+
+    strlwr(string); /* Passa a string inteira para minúscula */
+    printf("String: %s\n", string);
+
+    /* Enquanto não chegar no final da string */
+    while (string[cont] != '\0') {
+        c = string[cont];
+        if (c != ' ') {
+            aux[i] = c;
+            i++;
+        }
+        /* Indica o final de uma palavra */
+        if (c == ' ') {
+            aux[i] = '\0';
+            i = 0; /* Para armazenar a primeira letra da proxima palavra na posição 0 da string aux */
+            palavras[j] = strdup(aux); /* Insere aux na posição j do vetor de palavras */
+            j++; /* Incrementa o j */
+            q_termos++; /* Incrementa a quantidade de palavras */
+        }
+        cont++; /* Passa para a próxima posição da string */
+    }
+    /* Tratando a última palavra de busca */
+    aux[i] = '\0';
+    q_termos++;
+    palavras[j] = strdup(aux);
+
+    for (i=0; i<q_termos; i++)
+        printf("Palavra[%d]: %s\n", i, palavras[i]);
+    printf("q_termos: %d\n", q_termos);
+    CalculaRelevancia(no, ListaArquivos, palavras, q_termos);
+}
+
+void MontaIndiceInvertido (TLista *ListaArquivos, char *aux) {
     TipoPatNo *raizPat;
     No *raizTST;
     TCelula *celula; /* Célula auxiliar para percorrer toda a Lista de Arquivos */
