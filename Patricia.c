@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 /* Função para inicializar a árvore Patricia como NULL */
 void inicializaPatricia (TipoPatNo **raiz) {
@@ -181,27 +180,4 @@ void imprimePatricia (TipoPatNo *no) {
 
     if(!ConfereTipoNo(no)) /* Se for nó interno */
         imprimePatricia(no->NO.NInterno.Dir); /* Chamada recursivamente para o nó à direita */
-}
-
-void CalculaPeso (TipoPatNo *no, int N) {
-    TCelula *celula;
-    int d; /* Número de documentos na coleção que contêm o termo k */
-    if(no == NULL) {
-        printf("Arvore esta vazia\n");
-        return;
-    }
-    if(!ConfereTipoNo(no)) /* Se for nó interno */
-        CalculaPeso(no->NO.NInterno.Esq, N); /* Chamada recursivamente para o nó à esquerda */
-
-    if (ConfereTipoNo(no)) { /* Se for nó externo, o nó deve ser impresso */
-        d = no->NO.NExterno.Lista.tamanho; /* O tamanho da lista representa a quantidade de documentos que possuem a palavra k */
-        celula = no->NO.NExterno.Lista.primeiro->prox; /* Variável celula passa a apontar para a primeira célula da lista */
-        while (celula != NULL) {
-            celula->item.it.termo.peso =  (float)((celula->item.it.termo.qtde) * (log10(N) / d));
-            celula = celula->prox;
-        }
-        return;
-    }
-    if(!ConfereTipoNo(no)) /* Se for nó interno */
-        CalculaPeso(no->NO.NInterno.Dir, N); /* Chamada recursivamente para o nó à direita */
 }
