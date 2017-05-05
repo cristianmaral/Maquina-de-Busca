@@ -98,8 +98,8 @@ void gtkMain(int argc, char *argv[]){
 		//end files_innerlower_box
 	//Helper Widgets
 	widgets.agrupamento_tamanho_telas = GTK_SIZE_GROUP(gtk_builder_get_object(gtkBuilder, "agrupamento_tamanho_telas"));
-	//widgets.entrycompletion = GTK_ENTRY_COMPLETION(gtk_builder_get_object(gtkBuilder, "entrycompletion"));
-	//widgets.main_lista_completion = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "main_lista_completion"));
+	widgets.entrycompletion = GTK_ENTRY_COMPLETION(gtk_builder_get_object(gtkBuilder, "entrycompletion"));
+	widgets.main_lista_completion = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "main_lista_completion"));
 	widgets.files_lista_dados = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "files_lista_dados"));
 	widgets.index_lista_dados = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "index_lista_dados"));
 	widgets.search_lista_dados = GTK_LIST_STORE(gtk_builder_get_object(gtkBuilder, "search_lista_dados"));
@@ -140,15 +140,23 @@ void gtkMain(int argc, char *argv[]){
 	
 
 	/* Fazendo ligações com as entradas do glade */
+	GtkTreeIter iter;
+	widgets.iter = &iter;
 	
 	/* Conectando os sinais */
 	gtk_builder_connect_signals(gtkBuilder, &widgets);
 	
 	/* Destruindo o builder, já que não precisamos mais dele */
 	g_object_unref(G_OBJECT(gtkBuilder));
+
+	gtk_entry_completion_set_match_func(widgets.entrycompletion,func,NULL,NULL);
+	gtk_entry_completion_set_minimum_key_length(widgets.entrycompletion,0);
 	
 	/* Mostra a interface do glade */
 	gtk_widget_show(GTK_WIDGET(widgets.MainWindow));
 	
 	gtk_main();
+}
+gboolean func(GtkEntryCompletion *completion,const gchar *key,GtkTreeIter *iter,gpointer user_data){
+	return TRUE;
 }

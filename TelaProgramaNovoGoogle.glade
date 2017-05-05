@@ -149,6 +149,21 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkListStore" id="main_lista_completion">
+    <columns>
+      <!-- column-name Palavra -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkEntryCompletion" id="entrycompletion">
+    <property name="model">main_lista_completion</property>
+    <child>
+      <object class="GtkCellRendererText" id="cellrenderertext1"/>
+      <attributes>
+        <attribute name="text">0</attribute>
+      </attributes>
+    </child>
+  </object>
   <object class="GtkListStore" id="search_lista_dados">
     <columns>
       <!-- column-name NomeDocumento -->

@@ -6,8 +6,11 @@
 void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets){
 	TLista palavras;
 	inicializaLista(&palavras);
+
+	TCelula *itercel;
 	int i,j = 0;
 	const gchar* text = gtk_entry_get_text(GTK_ENTRY(entry));
+	gtk_list_store_clear(widgets->main_lista_completion);
 	if(strcmp((char*)text,"") != 0){
 		for (i = 0; text[i] != '\0'; i++) {
 			if(text[i] == ' '){ 	//capturar começo da ultima palavra
@@ -15,8 +18,13 @@ void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets){
 			}
 		}
 		AutoPreenchimentoTST(raiz,0,((char*)text) + j,&palavras);
+		for (itercel = palavras.primeiro->prox; itercel != NULL ; itercel = itercel->prox) {
+			gtk_list_store_append(widgets->main_lista_completion, widgets->iter);
+			gtk_list_store_set(widgets->main_lista_completion, widgets->iter,0,(const gchar*)itercel->palavra,-1);
+		}
 		imprimeListaDePalavras(&palavras);
 	}
+	gtk_entry_completion_complete(widgets->entrycompletion);
 }
 void goMainWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->main_box));
@@ -38,7 +46,7 @@ void selecionarArquivo (GtkButton *button, Widgets *widgets){
 	printf("Apertou\n");
 }
 void closeProgram (GtkButton *button, Widgets *widgets){
-	exit(0);
+	gtk_main_quit();
 }
 void addFile (GtkButton *button, Widgets *widgets){
 	printf("Apertou\n");

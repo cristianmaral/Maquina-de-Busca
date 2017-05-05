@@ -77,8 +77,8 @@ typedef struct {
 		//end files_innerlower_box
 	//Helper Widgets
 	GtkSizeGroup *agrupamento_tamanho_telas;
-	//GtkEntryCompletion *entrycompletion;
-	//GtkListStore *main_lista_completion;
+	GtkEntryCompletion *entrycompletion;
+	GtkListStore *main_lista_completion;
 	GtkListStore *files_lista_dados, *index_lista_dados, *search_lista_dados, *selecionador_combobox_extensao_dados;
 	GtkFileChooserDialog *SelecionadorDeArquivo;
 		//begin SelecionadorDeArquivo
@@ -110,8 +110,13 @@ typedef struct {
 	GtkButtonBox *about_buttonbox;
 			//end about_box
 		//end AboutWindow
+	GtkTreeIter *iter;
 	
 	
 } Widgets;
+gboolean func(GtkEntryCompletion *completion,
+		const gchar *key,
+		GtkTreeIter *iter,
+		gpointer user_data);
 void gtkMain(int argc, char *argv[]);
 #endif
