@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-/* Função  */
+/* Função para transformar todas as letras de uma string para minísculas */
 char *strlwr(char *str) {
     unsigned char *p = (unsigned char *)str;
 
