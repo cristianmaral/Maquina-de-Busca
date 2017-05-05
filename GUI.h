@@ -110,13 +110,10 @@ typedef struct {
 	GtkButtonBox *about_buttonbox;
 			//end about_box
 		//end AboutWindow
-	GtkTreeIter *iter;
+	GtkTreeIter *iter;//Iterador usado para trabalhar com GtkListStore
 	
 	
 } Widgets;
-gboolean func(GtkEntryCompletion *completion,
-		const gchar *key,
-		GtkTreeIter *iter,
-		gpointer user_data);
+gboolean func(GtkEntryCompletion *completion,const gchar *key,GtkTreeIter *iter,gpointer user_data);
 void gtkMain(int argc, char *argv[]);
 #endif
