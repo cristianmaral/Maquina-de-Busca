@@ -13,6 +13,7 @@ void inicializaLista (TLista *Lista) {
 void insereCelulaEmLista (TLista *Lista, TCelula *celula) {
     Lista->ultimo->prox = celula;
     Lista->ultimo = celula;
+    Lista->tamanho++;
 }
 /* Insere um item na lista */
 void insereLista (TLista *Lista, TItem *item) {
@@ -45,10 +46,10 @@ void imprimeLista (TLista *Lista) {
 
     while (aux != NULL) {
         if(aux->prox == NULL)
-            printf("<%d,%d>\n", aux->item.qtde, aux->item.idDoc);
+            printf("<%d,%d>\n", aux->item.termo.qtde, aux->item.termo.idDoc);
         /* Imprime "->" no final do par ordenado */
         else
-            printf("<%d,%d> -> ", aux->item.qtde, aux->item.idDoc);
+            printf("<%d,%d> -> ", aux->item.termo.qtde, aux->item.termo.idDoc);
 
         aux = aux->prox;
     }
