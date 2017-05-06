@@ -22,6 +22,7 @@ void insereLista (TLista *Lista, TItem *item) {
     aux->item = *item;
     Lista->ultimo->prox = aux;
     Lista->ultimo = aux;
+    Lista->tamanho++;
 }
 
 /* Imprime as palavras contidas na lista */
