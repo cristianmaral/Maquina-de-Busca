@@ -28,10 +28,10 @@ typedef struct {
 /* Estrutura de uma célula */
 typedef struct Celula {
 	union{
-    TItem item; /* Um item */
-    char* palavra;
+		TItem item; /* Um item */
+		char* palavra;
 	};
-    struct Celula *prox; /* Ponteiro para a próxima célula */
+		struct Celula *prox; /* Ponteiro para a próxima célula */
 } TCelula;
 
 /* Estrutura da Lista Encadeada */

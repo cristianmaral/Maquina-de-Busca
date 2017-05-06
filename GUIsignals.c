@@ -22,7 +22,6 @@ void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets){
 			gtk_list_store_append(widgets->main_lista_completion, widgets->iter);
 			gtk_list_store_set(widgets->main_lista_completion, widgets->iter,0,(const gchar*)itercel->palavra,-1);
 		}
-		imprimeListaDePalavras(&palavras);
 	}
 	gtk_entry_completion_complete(widgets->entrycompletion);
 }

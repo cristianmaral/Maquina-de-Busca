@@ -1,5 +1,4 @@
 #include "ListaEncadeada.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 /* Inicializa uma lista - já alocando a célula cabeça */
@@ -22,23 +21,9 @@ void insereLista (TLista *Lista, TItem *item) {
     aux->item = *item;
     Lista->ultimo->prox = aux;
     Lista->ultimo = aux;
+    Lista->tamanho++;
 }
 
-/* Imprime as palavras contidas na lista */
-void imprimeListaDePalavras (TLista *Lista) {
-    TCelula *aux;
-    aux = Lista->primeiro->prox;
-
-    while (aux != NULL) {
-        if(aux == Lista->ultimo)
-            printf("%s\n", aux->palavra);
-        /* Imprime "->" no final do par ordenado */
-        else
-            printf("%s -> ", aux->palavra);
-
-        aux = aux->prox;
-    }
-}
 /* Imprime o par ordenado (qtde,idDoc) */
 void imprimeLista (TLista *Lista) {
     TCelula *aux;
