@@ -1,7 +1,13 @@
 #ifndef GUISIGNALS_H_INCLUDED
 #define GUISIGNALS_H_INCLUDED
 #include "GUI.h"
+
+//Help Funcions
+void updateFileTitle(Widgets *widgets);
 void splitPath(gchar *filepath,gchar **filename);
+
+
+//Signals
 void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets);
 void goSearchWindow (GtkButton *button, Widgets *widgets);
 void goMainWindow (GtkButton *button, Widgets *widgets);

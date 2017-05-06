@@ -57,9 +57,17 @@ void splitPath(gchar *filepath,gchar **filename){
 	*filename = filepath + j;
 	
 }
+void updateFileTitle(Widgets *widgets){
+	gint n = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(widgets->files_lista_dados),NULL);
+	gchar *str = (gchar*)gtk_label_get_text(widgets->files_title);
+	gchar *label = (gchar*)malloc(sizeof(str)+sizeof(gchar)*3);
+	sprintf(label,"%d%s",n,str+1);
+	gtk_label_set_text(widgets->files_title, label);
+}
 void remFile (GtkButton *button, Widgets *widgets){
 	if(gtk_tree_selection_get_selected(widgets->files_treeview_selection,NULL,widgets->iter)){
 		gtk_list_store_remove(widgets->files_lista_dados,widgets->iter);
+		updateFileTitle(widgets);
 		//Há algo selecionado
 		return;
 	}
@@ -67,12 +75,15 @@ void remFile (GtkButton *button, Widgets *widgets){
 }
 void addFile (GtkButton *button, Widgets *widgets){
 	gchar *filename,*filepath = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(widgets->files_filechooserbutton));
+	if(filepath == NULL) return;
 	splitPath(filepath,&filename);
 	printf("%s em %s\n",filename,filepath);
 	gtk_list_store_append(widgets->files_lista_dados, widgets->iter);
 	gtk_list_store_set(widgets->files_lista_dados, widgets->iter,0,filename,1,filepath,-1);
+	updateFileTitle(widgets);
 }
 void goFilesWindow (GtkButton *button, Widgets *widgets){
+	updateFileTitle(widgets);
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->files_box));
 }
 void buildIndex (GtkButton *button, Widgets *widgets){
