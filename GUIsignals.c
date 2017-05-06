@@ -20,7 +20,7 @@ void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets){
 		AutoPreenchimentoTST(raiz,0,((char*)text) + j,&palavras);
 		for (itercel = palavras.primeiro->prox; itercel != NULL ; itercel = itercel->prox) {
 			gtk_list_store_append(widgets->main_lista_completion, widgets->iter);
-			gtk_list_store_set(widgets->main_lista_completion, widgets->iter,0,(const gchar*)itercel->palavra,-1);
+			gtk_list_store_set(widgets->main_lista_completion, widgets->iter,0,(const gchar*)itercel->item.palavra,-1);
 		}
 	}
 	gtk_entry_completion_complete(widgets->entrycompletion);
