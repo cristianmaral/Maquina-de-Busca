@@ -27,8 +27,11 @@ typedef struct {
 
 /* Estrutura de uma célula */
 typedef struct Celula {
-    TItem item; /* Um item */
-    struct Celula *prox; /* Ponteiro para a próxima célula */
+	union{
+		TItem item; /* Um item */
+		char* palavra;
+	};
+		struct Celula *prox; /* Ponteiro para a próxima célula */
 } TCelula;
 
 /* Estrutura da Lista Encadeada */
@@ -41,5 +44,6 @@ typedef struct {
 void inicializaLista (TLista *Lista);
 void insereLista (TLista *Lista, TItem *item);
 void imprimeLista(TLista *Lista);
-
+void insereCelulaEmLista (TLista *Lista, TCelula *celula);
+void imprimeListaDePalavras (TLista *Lista);
 #endif // LISTAENCADEADA_H_INCLUDED

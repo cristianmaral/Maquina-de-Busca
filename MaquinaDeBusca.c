@@ -97,9 +97,9 @@ void CalculaRelevancia (TipoPatNo *no, TLista *ListaArquivos, char **palavras, i
     celula = ListaArquivos->primeiro->prox;
     while (celula != NULL) {
         for (i=0; i<n_termos; i++) {
-            somatorio += RetornaPesoTermo(palavras[i], no, celula->item.it.arq.idDoc);
+            somatorio += RetornaPesoTermo(palavras[i], no, celula->item.arq.idDoc);
         }
-        celula->item.it.arq.relevancia = (float)(somatorio / celula->item.it.arq.termos_distintos);
+        celula->item.arq.relevancia = (float)(somatorio / celula->item.arq.termos_distintos);
         celula = celula->prox;
         somatorio = (float)0;
     }
@@ -148,7 +148,7 @@ void BuscaTermos (TipoPatNo *no, TLista *ListaArquivos, char *string) {
 
 void MontaIndiceInvertido (TLista *ListaArquivos, char *aux) {
     TipoPatNo *raizPat;
-    No *raizTST;
+    TipoTSTNo *raizTST;
     TCelula *celula; /* Célula auxiliar para percorrer toda a Lista de Arquivos */
     char string[50]; /* String para armazenar cada palavra de um arquivo de entrada */
     int idDoc = 1; /* O idDoc sempre começa como 1 */

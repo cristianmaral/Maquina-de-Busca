@@ -8,6 +8,12 @@ void inicializaLista (TLista *Lista) {
     Lista->tamanho = 0;
 }
 
+/* Insere uma celula na lista */
+void insereCelulaEmLista (TLista *Lista, TCelula *celula) {
+    Lista->ultimo->prox = celula;
+    Lista->ultimo = celula;
+    Lista->tamanho++;
+}
 /* Insere um item na lista */
 void insereLista (TLista *Lista, TItem *item) {
     TCelula *aux;
