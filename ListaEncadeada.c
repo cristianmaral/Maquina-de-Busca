@@ -8,6 +8,20 @@ void inicializaLista (TLista *Lista) {
     Lista->tamanho = 0;
 }
 
+void reinicializaLista (TLista *Lista) {
+	TCelula *iterator;
+	if(Lista != NULL){
+		iterator = Lista->primeiro->prox;
+		while (iterator != NULL) {
+			free(Lista->primeiro);
+			Lista->primeiro = iterator;
+			iterator = iterator->prox;
+		}
+		free(Lista->ultimo);
+	}
+	inicializaLista(Lista);
+}
+
 /* Insere uma celula na lista */
 void insereCelulaEmLista (TLista *Lista, TCelula *celula) {
     Lista->ultimo->prox = celula;
