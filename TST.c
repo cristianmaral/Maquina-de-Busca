@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void inicializaTST (No **raiz) { /* Inicia a árvore */
+void inicializaTST (TipoTSTNo **raiz) { /* Inicia a árvore */
     *raiz = NULL;
 }
 
 /* Função para criar um novo nó da TST */
-No* novoNoTST(char caractere) {
-    No* aux = (No*)malloc(sizeof(No));
+TipoTSTNo* novoNoTST(char caractere) {
+    TipoTSTNo* aux = (TipoTSTNo*)malloc(sizeof(TipoTSTNo));
     aux->caractere = caractere;
     aux->fimString = 0;
     aux->esq = aux->meio = aux->dir = NULL;
@@ -16,7 +16,7 @@ No* novoNoTST(char caractere) {
 }
 
 /* Função para inserir uma nova palavra na TST */
-void insereTST(No** no, char *palavra)
+void insereTST(TipoTSTNo** no, char *palavra)
 {
     /* Primeiro Caso: Árvore está vazia */
     if (!(*no))
@@ -43,7 +43,7 @@ void insereTST(No** no, char *palavra)
 }
 
 /* Uma função recursiva para percorrer a TST */
-void percorre (No* no, char* palavra,char *prefixo, int indice,TLista *retorno)
+void percorre (TipoTSTNo* no, char* palavra,char *prefixo, int indice,TLista *retorno)
 {
     TCelula *temp = (TCelula*)malloc(sizeof(TCelula));
     temp->prox = NULL;
@@ -71,14 +71,14 @@ void percorre (No* no, char* palavra,char *prefixo, int indice,TLista *retorno)
 }
 
 /* Função principal que encapsula a função transverseTSTUtil */
-void percorreTST(No* no, char *prefixo,TLista *retorno)
+void percorreTST(TipoTSTNo* no, char *prefixo,TLista *retorno)
 {
     char palavra[MAXTAM]; // MAXTAM definido como 50
     percorre(no, palavra, prefixo, 0, retorno);
 }
 
 /* Função para pesquisar uma palavra na TST */
-int pesquisaTST(No *no, char *palavra)
+int pesquisaTST(TipoTSTNo *no, char *palavra)
 {
     if (!no) /* Palavra não encontrada na TST */
         return 0;
@@ -104,7 +104,7 @@ int pesquisaTST(No *no, char *palavra)
     }
 }
 /* Função responsavel por encontrar posicao de possiveis palavras para o prefixo */
-void AutoPreenchimentoTST(No *no, int indice, char *prefixo, TLista *retorno){
+void AutoPreenchimentoTST(TipoTSTNo *no, int indice, char *prefixo, TLista *retorno){
     if(!no) return;
     if (prefixo[indice] < (no)->caractere)
 	AutoPreenchimentoTST(no->esq,indice,prefixo,retorno);

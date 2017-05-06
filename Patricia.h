@@ -27,16 +27,16 @@ typedef struct TipoPatNo {
 } TipoPatNo;
 
 void inicializaPatricia (TipoPatNo **raiz);
-unsigned int ComparaChar (char a, char b);
-unsigned int ConfereTipoNo (TipoPatNo *no);
+short ComparaChar (char a, char b);
+short ConfereTipoNo (TipoPatNo *no);
 /* Funções para criação de nós da árvore Patricia */
-TipoPatNo* CriaNoInt (short i, TipoPatNo **Esq,  TipoPatNo **Dir, char Caractere);
+TipoPatNo* CriaNoInt (short i, TipoPatNo **Esq,  TipoPatNo **Dir, char  Caractere);
 TipoPatNo* CriaNoExt (char *k, int idDoc);
 
-void PesquisaPatricia (char *k, TipoPatNo *t, int idDoc);
+float RetornaPesoTermo (char *k, TipoPatNo *t, int idDoc);
 
 /* Funções para inserir uma palavra na árvore Patricia */
-TipoPatNo* InsereEntre (char *k, TipoPatNo **t, short i, int idDoc);
+TipoPatNo* InsereEntre (char *k, TipoPatNo **t, short i, int idDoc, char Caractere);
 TipoPatNo* InserePatricia (char *k, TipoPatNo **t, int idDoc); /* A função Insere encapsula a função InsereEntre */
 
 void imprimePatricia (TipoPatNo *no);
