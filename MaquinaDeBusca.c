@@ -16,11 +16,11 @@ char *strlwr(char *str) {
     return str;
 }
 
-void AdicionaArquivo (TLista *ListaArquivos) {
+void AdicionaArquivo (TLista *ListaArquivos, char *nome_arq) {
     TItem item;
 
     printf("Entre com o nome do arquivo que voce deseja adicionar: ");
-    scanf("%s", item.arq.nome_arquivo);
+    item.arq.nome_arquivo = nome_arq;
     item.arq.entrada = fopen(item.arq.nome_arquivo, "r");
     if (item.arq.entrada) {
         printf("Arquivo válido\n");
