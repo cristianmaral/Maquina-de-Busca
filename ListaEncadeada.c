@@ -25,6 +25,7 @@ void reinicializaLista (TLista *Lista) {
 
 /* Insere uma celula na lista */
 void insereCelulaEmLista (TLista *Lista, TCelula *celula) {
+    celula->prox = NULL;
     Lista->ultimo->prox = celula;
     Lista->ultimo = celula;
     Lista->tamanho++;
@@ -35,6 +36,7 @@ void insereLista (TLista *Lista, TItem *item) {
     TCelula *aux;
     aux = (TCelula *)malloc(sizeof(TCelula));
     aux->item = *item;
+    aux->prox = NULL;
     Lista->ultimo->prox = aux;
     Lista->ultimo = aux;
     Lista->tamanho++;
