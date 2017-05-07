@@ -167,10 +167,8 @@ void MontaIndiceInvertido () {
     int idDoc = 1; /* O idDoc sempre começa como 1 */
     int i; /* Variável auxiliar para atribuir o caractere c à posição i da string */
     char c; /* Caractere auxiliar para ler caractere por caractere de cada arquivo */
-
-    inicializaPatricia(&raizPatTemp); /* Inicializando a Patricia */
-    inicializaTST(&raizTSTTemp); /* Inicializando a TST */
-
+    inicializaPatricia(&raizPatTemp); // Inicializando a Patricia
+    inicializaTST(&raizTSTTemp); // Inicializando a TST
     celula = ListaArquivos->primeiro->prox; /* Aponta para a primeira célula da Lista de Arquivos */
 
     while (celula != NULL && !cancela) {
@@ -188,23 +186,28 @@ void MontaIndiceInvertido () {
             strlwr(string); /* Transforma todas as letras da string em letras minúsculas */
             /* Condição para não inserir uma string vazia nas árvores */
             if (strlen(string) > 0) {
-                raizPatTemp = InserePatricia(string, &raizPatTemp, idDoc); /* Insere na Patricia */
-                insereTST(&raizTSTTemp, string); /* Insere na TST */
+                raizPatTemp = InserePatricia(string, &raizPatTemp, idDoc); // Insere na Patricia
+                insereTST(&raizTSTTemp, string); // Insere na TST
             }
         }
         celula->item.arq.idDoc = idDoc;
         celula->item.arq.relevancia = 0.0;
         CalculaTermosDistintos(raizPatTemp, celula, celula->item.arq.idDoc); /* Calcula termos distintos do documento atual */
+        CalculaTermosDistintos(raizPat, celula, celula->item.arq.idDoc); /* Calcula termos distintos do documento atual */
         idDoc++; /* Incrementa o id do documento da lista */
         celula = celula->prox; /* Passa para a próxima célula */
     }
-    if(!cancela) CalculaPesos(raizPatTemp, ListaArquivos->tamanho); /* Calcula o peso de todos os termos inseridos na árvore Patricia */
+    if(!cancela) CalculaPesos(raizPatTemp, ListaArquivos->tamanho); // Calcula o peso de todos os termos inseridos na árvore Patricia
     else printf("Cancelado 1\n");
     if(!cancela){
+	    free(raizPat);
+	    free(raizTST);
 	    raizPat = raizPatTemp;
 	    raizTST = raizTSTTemp;
     }
-    else printf("Cancelado 2\n");
-    free(raizTSTTemp);
-    free(raizPatTemp);
+    else{
+	    printf("Cancelado 2\n");
+	    free(raizTSTTemp);
+	    free(raizPatTemp);
+    }
 }

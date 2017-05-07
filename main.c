@@ -9,12 +9,14 @@ int main(int argc, char *argv[]){
 	ListaArquivos = (TLista*)malloc(sizeof(TLista));
 	inicializaLista(ListaArquivos);
 	inicializaLista(&palavras);
+	/*
 	inicializaTST(&raiz);
 	insereTST(&raiz,"cristian");
 	insereTST(&raiz,"cavalo");
 	insereTST(&raiz,"coveiro");
 	insereTST(&raiz,"armario");
 	insereTST(&raiz,"arnaldo");
+	*/
 	/*
 	char c[MAXTAM];
 	scanf("%s",c);

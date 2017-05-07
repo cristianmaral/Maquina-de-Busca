@@ -18,7 +18,7 @@ void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets){
 				palavras.tamanho++;
 			}
 		}
-		AutoPreenchimentoTST(raiz,0,((char*)text) + j,&palavras);
+		AutoPreenchimentoTST(raizTST,0,((char*)text) + j,&palavras);
 		for (itercel = palavras.primeiro->prox; itercel != NULL ; itercel = itercel->prox) {
 			gtk_list_store_append(widgets->main_lista_completion, widgets->iter);
 			gtk_list_store_set(widgets->main_lista_completion, widgets->iter,0,(const gchar*)itercel->item.palavra,-1);
@@ -71,19 +71,20 @@ void remFile (GtkButton *button, Widgets *widgets){
 		gtk_list_store_remove(widgets->files_lista_dados,widgets->iter);
 		updateFileTitle(widgets);
 		//Há algo selecionado
+		gtk_widget_set_sensitive(GTK_WIDGET(widgets->index_build_button),TRUE);
 		return;
 	}
-	printf("Nao tem algo selecionado!\n");
 }
 void addFile (GtkButton *button, Widgets *widgets){
 	gchar *filename,*filepath = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(widgets->files_filechooserbutton));
-	if(filepath == NULL) return;
+	if(filepath == NULL) return; //Nao Há arquivo selecionado
 	splitPath(filepath,&filename);
 	printf("%s em %s\n",filename,filepath);
 	gtk_list_store_append(widgets->files_lista_dados, widgets->iter);
 	gtk_list_store_set(widgets->files_lista_dados, widgets->iter,0,filename,1,filepath,-1);
 	updateFileTitle(widgets);
 	AdicionaArquivo (filepath);
+	gtk_widget_set_sensitive(GTK_WIDGET(widgets->index_build_button),TRUE);
 
 }
 void goFilesWindow (GtkButton *button, Widgets *widgets){
@@ -94,6 +95,7 @@ void buildIndex (GtkButton *button, Widgets *widgets){
 	gtk_widget_show(GTK_WIDGET(widgets->LoadingWindow));
 	MontaIndiceInvertido();
 	gtk_widget_hide(GTK_WIDGET(widgets->LoadingWindow));
+	gtk_widget_set_sensitive(GTK_WIDGET(widgets->index_build_button),FALSE);
 }
 void goIndexWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->index_box));
