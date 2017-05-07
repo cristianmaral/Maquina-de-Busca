@@ -41,7 +41,6 @@ TipoPatNo * CriaNoExt (char *k, int idDoc) {
     no = (TipoPatNo *)malloc(sizeof(TipoPatNo));
     no->nt = Externo;
     strcpy(no->NO.NExterno.Palavra, k); /* Copia a palavra k para o campo palavra do novo nó externo */
-
     inicializaLista(&(no->NO.NExterno.Lista));
     insereLista(&(no->NO.NExterno.Lista), &item);
     no->NO.NExterno.Lista.tamanho = 1; /* Primeira célula da lista */

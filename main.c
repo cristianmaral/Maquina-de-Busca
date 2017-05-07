@@ -4,6 +4,11 @@
 #include "GUIsignals.h"
 #include "TST.h"
 int main(int argc, char *argv[]){
+	inicializaPatricia(&raizPat); /* Inicializando a Patricia */
+	inicializaTST(&raizTST); /* Inicializando a TST */
+	ListaArquivos = (TLista*)malloc(sizeof(TLista));
+	inicializaLista(ListaArquivos);
+	inicializaLista(&palavras);
 	inicializaTST(&raiz);
 	insereTST(&raiz,"cristian");
 	insereTST(&raiz,"cavalo");

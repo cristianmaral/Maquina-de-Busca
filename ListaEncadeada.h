@@ -38,7 +38,6 @@ typedef struct {
 	TCelula *ultimo; /* Ponteiro para a última célula da lista */
 	int tamanho; /* Tamanho da lista */
 } TLista;
-
 void inicializaLista (TLista *Lista);
 void reinicializaLista (TLista *Lista);
 void insereCelulaEmLista (TLista *Lista, TCelula *celula);

@@ -4,17 +4,18 @@
 #include <string.h>
 //inside main_box signals
 void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets){
-	TLista palavras;
-	inicializaLista(&palavras);
+	reinicializaLista(&palavras);
 
 	TCelula *itercel;
 	int i,j = 0;
 	const gchar* text = gtk_entry_get_text(GTK_ENTRY(entry));
 	gtk_list_store_clear(widgets->main_lista_completion);
 	if(strcmp((char*)text,"") != 0){
+		palavras.tamanho = 1;
 		for (i = 0; text[i] != '\0'; i++) {
 			if(text[i] == ' '){ 	//capturar começo da ultima palavra
 				j = i+1;
+				palavras.tamanho++;
 			}
 		}
 		AutoPreenchimentoTST(raiz,0,((char*)text) + j,&palavras);
@@ -33,16 +34,17 @@ void openAboutWindow (GtkButton *button, Widgets *widgets){
 	gtk_widget_hide(GTK_WIDGET(widgets->AboutWindow));
 }
 void goSearchWindow (GtkButton *button, Widgets *widgets){
+	int i, j, pos = 0;
+	gchar *label = (gchar*)malloc(sizeof(gchar)*palavras.tamanho*20);
+	TCelula *iterator = palavras.primeiro->prox;
+	printf("%d\n",palavras.tamanho);
+	for (i = 0; i < palavras.tamanho; i++) {
+		for (j = 0; iterator->item.palavra[j] != '\0'; j++) {
+			label[pos++] = iterator->item.palavra[j];
+		}
+	}
+	gtk_label_set_text(widgets->search_title, label);
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->search_box));
-}
-void filtrarExtensao (GtkButton *button, Widgets *widgets){
-	printf("Apertou\n");
-}
-void cancelarSelecao (GtkButton *button, Widgets *widgets){
-	printf("Apertou\n");
-}
-void selecionarArquivo (GtkButton *button, Widgets *widgets){
-	printf("Apertou\n");
 }
 void closeProgram (GtkButton *button, Widgets *widgets){
 	gtk_main_quit();
@@ -81,6 +83,8 @@ void addFile (GtkButton *button, Widgets *widgets){
 	gtk_list_store_append(widgets->files_lista_dados, widgets->iter);
 	gtk_list_store_set(widgets->files_lista_dados, widgets->iter,0,filename,1,filepath,-1);
 	updateFileTitle(widgets);
+	AdicionaArquivo (filepath);
+
 }
 void goFilesWindow (GtkButton *button, Widgets *widgets){
 	updateFileTitle(widgets);
@@ -88,6 +92,8 @@ void goFilesWindow (GtkButton *button, Widgets *widgets){
 }
 void buildIndex (GtkButton *button, Widgets *widgets){
 	gtk_widget_show(GTK_WIDGET(widgets->LoadingWindow));
+	MontaIndiceInvertido();
+	gtk_widget_hide(GTK_WIDGET(widgets->LoadingWindow));
 }
 void goIndexWindow (GtkButton *button, Widgets *widgets){
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->index_box));
@@ -96,6 +102,7 @@ void goIndexWindow (GtkButton *button, Widgets *widgets){
 	gtk_adjustment_configure(widgets->index_scrollbar_config,0.0,0.0,100.0,1.0,1.0,height);
 }
 void cancelBuildIndex (GtkButton *button, Widgets *widgets){
+	cancela = TRUE;
 	gtk_widget_hide(GTK_WIDGET(widgets->LoadingWindow));
 }
 

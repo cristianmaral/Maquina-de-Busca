@@ -17,24 +17,23 @@ char *strlwr(char *str) {
 }
 
 /* Função para ler um arquivo e o inserir na lista de arquivos */
-void AdicionaArquivo (TLista *ListaArquivos, char *nome_arq) {
-    TItem item;
-
+void AdicionaArquivo (char *nome_arq) {
+    TItem *item = (TItem*)malloc(sizeof(TItem));
     printf("Entre com o nome do arquivo que voce deseja adicionar: ");
-    item.arq.nome_arquivo = nome_arq;
-    item.arq.entrada = fopen(item.arq.nome_arquivo, "r");
-    if (item.arq.entrada) {
+    item->arq.nome_arquivo = nome_arq;
+    item->arq.entrada = fopen(item->arq.nome_arquivo, "r");
+    if (item->arq.entrada) {
         printf("Arquivo válido\n");
-        item.arq.termos_distintos = 0;
-        item.arq.relevancia = (float)0;
-        insereLista(ListaArquivos, &item);
+        item->arq.termos_distintos = 0;
+        item->arq.relevancia = 0.0;
+        insereLista(ListaArquivos, item);
     }
     else
         printf("Arquivo inválido\n");
 }
 
 /* Fecha todos os arquivos da lista de arquivos */
-void FechaArquivos (TLista *ListaArquivos) {
+void FechaArquivos () {
     TCelula *celula;
     celula = ListaArquivos->primeiro->prox;
     while (celula != NULL) {
@@ -97,7 +96,7 @@ void CalculaTermosDistintos (TipoPatNo *no, TCelula *arq, int idDoc) {
 }
 
 /* Calcula a relevância de todos os documentos da lista de arquivos de acordo com todos os termos de busca */
-void CalculaRelevancia (TipoPatNo *no, TLista *ListaArquivos, char **palavras, int n_termos) {
+void CalculaRelevancia (TipoPatNo *no, char **palavras, int n_termos) {
     float somatorio = (float)0;
     int i;
     TCelula *celula;
@@ -122,7 +121,7 @@ void CalculaRelevancia (TipoPatNo *no, TLista *ListaArquivos, char **palavras, i
 }
 
 /* Recebe a string de todos os termos de busca, e armazena cada termo em uma posição do vetor de strings */
-void BuscaTermos (TipoPatNo *no, TLista *ListaArquivos, char *string) {
+void BuscaTermos (TipoPatNo *no, char *string) {
     int q_termos = 0; /* Conta a quantidade de termos de busca */
     char aux[50]; /* String auxiliar para guardar temporariamente cada palavra de busca separadamente */
     char *palavras[30]; /* Vetor de Strings - Consideramos o máximo de 30 palavras de busca */
@@ -155,20 +154,26 @@ void BuscaTermos (TipoPatNo *no, TLista *ListaArquivos, char *string) {
     q_termos++; /* Incrementa a quantidade de termos de busca */
     palavras[j] = strdup(aux); /* Atribui a string auxiliar à j-ésima string do vetor de strings */
     /* Calcula a relevância de todos os termos de busca para todos os documentos da lista de arquivos */
-    CalculaRelevancia(no, ListaArquivos, palavras, q_termos); /* Calcula a relevância de todos os termos de busca para todos os documentos
+    CalculaRelevancia(no, palavras, q_termos); /* Calcula a relevância de todos os termos de busca para todos os documentos
                                                                  da  lista de arquivos abertos */
 }
 
-void MontaIndiceInvertido (TLista *ListaArquivos, TipoPatNo **raizPat, TipoTSTNo **raizTST) {
+void MontaIndiceInvertido () {
+    cancela = FALSE;
+    TipoPatNo *raizPatTemp;
+    TipoTSTNo *raizTSTTemp;
     TCelula *celula; /* Célula auxiliar para percorrer toda a Lista de Arquivos */
     char string[50]; /* String para armazenar cada palavra de um arquivo de entrada */
     int idDoc = 1; /* O idDoc sempre começa como 1 */
     int i; /* Variável auxiliar para atribuir o caractere c à posição i da string */
     char c; /* Caractere auxiliar para ler caractere por caractere de cada arquivo */
 
+    inicializaPatricia(&raizPatTemp); /* Inicializando a Patricia */
+    inicializaTST(&raizTSTTemp); /* Inicializando a TST */
+
     celula = ListaArquivos->primeiro->prox; /* Aponta para a primeira célula da Lista de Arquivos */
 
-    while (celula != NULL) {
+    while (celula != NULL && !cancela) {
         /* Enquanto não chegar no final do arquivo */
         while (!feof(celula->item.arq.entrada)) {
             i = 0; /* Posição para ser atribuído o caractere c na string */
@@ -183,15 +188,23 @@ void MontaIndiceInvertido (TLista *ListaArquivos, TipoPatNo **raizPat, TipoTSTNo
             strlwr(string); /* Transforma todas as letras da string em letras minúsculas */
             /* Condição para não inserir uma string vazia nas árvores */
             if (strlen(string) > 0) {
-                *raizPat = InserePatricia(string, raizPat, idDoc); /* Insere na Patricia */
-                insereTST(raizTST, string); /* Insere na TST */
+                raizPatTemp = InserePatricia(string, &raizPatTemp, idDoc); /* Insere na Patricia */
+                insereTST(&raizTSTTemp, string); /* Insere na TST */
             }
         }
         celula->item.arq.idDoc = idDoc;
-        celula->item.arq.relevancia = (float)0;
-        CalculaTermosDistintos(*raizPat, celula, celula->item.arq.idDoc); /* Calcula termos distintos do documento atual */
+        celula->item.arq.relevancia = 0.0;
+        CalculaTermosDistintos(raizPatTemp, celula, celula->item.arq.idDoc); /* Calcula termos distintos do documento atual */
         idDoc++; /* Incrementa o id do documento da lista */
         celula = celula->prox; /* Passa para a próxima célula */
     }
-    CalculaPesos(*raizPat, ListaArquivos->tamanho); /* Calcula o peso de todos os termos inseridos na árvore Patricia */
+    if(!cancela) CalculaPesos(raizPatTemp, ListaArquivos->tamanho); /* Calcula o peso de todos os termos inseridos na árvore Patricia */
+    else printf("Cancelado 1\n");
+    if(!cancela){
+	    raizPat = raizPatTemp;
+	    raizTST = raizTSTTemp;
+    }
+    else printf("Cancelado 2\n");
+    free(raizTSTTemp);
+    free(raizPatTemp);
 }
