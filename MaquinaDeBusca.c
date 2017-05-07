@@ -159,17 +159,12 @@ void BuscaTermos (TipoPatNo *no, TLista *ListaArquivos, char *string) {
                                                                  da  lista de arquivos abertos */
 }
 
-void MontaIndiceInvertido (TLista *ListaArquivos) {
-    TipoPatNo *raizPat;
-    TipoTSTNo *raizTST;
+void MontaIndiceInvertido (TLista *ListaArquivos, TipoPatNo **raizPat, TipoTSTNo **raizTST) {
     TCelula *celula; /* Célula auxiliar para percorrer toda a Lista de Arquivos */
     char string[50]; /* String para armazenar cada palavra de um arquivo de entrada */
     int idDoc = 1; /* O idDoc sempre começa como 1 */
     int i; /* Variável auxiliar para atribuir o caractere c à posição i da string */
     char c; /* Caractere auxiliar para ler caractere por caractere de cada arquivo */
-
-    inicializaPatricia(&raizPat); /* Inicializando a Patricia */
-    inicializaTST(&raizTST); /* Inicializando a TST */
 
     celula = ListaArquivos->primeiro->prox; /* Aponta para a primeira célula da Lista de Arquivos */
 
@@ -178,7 +173,7 @@ void MontaIndiceInvertido (TLista *ListaArquivos) {
         while (!feof(celula->item.arq.entrada)) {
             i = 0; /* Posição para ser atribuído o caractere c na string */
             c = fgetc(celula->item.arq.entrada);
-            /* Enquanto c for um caractere válido (não especial) */
+            /* Enquanto c for um caractere válido (não especial) - c pode ser ' ou - */
             while (((c >= 65) && (c <= 90)) || ((c >= 97) && (c <= 122)) || c == 39 || c == 45) {
                 string[i] = c;
                 c = fgetc(celula->item.arq.entrada);
@@ -188,15 +183,15 @@ void MontaIndiceInvertido (TLista *ListaArquivos) {
             strlwr(string); /* Transforma todas as letras da string em letras minúsculas */
             /* Condição para não inserir uma string vazia nas árvores */
             if (strlen(string) > 0) {
-                raizPat = InserePatricia(string, &raizPat, idDoc); /* Insere na Patricia */
-                insereTST(&raizTST, string); /* Insere na TST */
+                *raizPat = InserePatricia(string, raizPat, idDoc); /* Insere na Patricia */
+                insereTST(raizTST, string); /* Insere na TST */
             }
         }
         celula->item.arq.idDoc = idDoc;
         celula->item.arq.relevancia = (float)0;
-        CalculaTermosDistintos(raizPat, celula, celula->item.arq.idDoc); /* Calcula termos distintos do documento atual */
+        CalculaTermosDistintos(*raizPat, celula, celula->item.arq.idDoc); /* Calcula termos distintos do documento atual */
         idDoc++; /* Incrementa o id do documento da lista */
         celula = celula->prox; /* Passa para a próxima célula */
     }
-    CalculaPesos(raizPat, ListaArquivos->tamanho); /* Calcula o peso de todos os termos inseridos na árvore Patricia */
+    CalculaPesos(*raizPat, ListaArquivos->tamanho); /* Calcula o peso de todos os termos inseridos na árvore Patricia */
 }
