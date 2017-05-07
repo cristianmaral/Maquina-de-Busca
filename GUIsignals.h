@@ -21,5 +21,9 @@ void buildIndex (GtkButton *button, Widgets *widgets);
 void goIndexWindow (GtkButton *button, Widgets *widgets);
 void cancelBuildIndex (GtkButton *button, Widgets *widgets);
 void openAboutWindow (GtkButton *button, Widgets *widgets);
+void ArqAnt(GtkButton *button, Widgets *widgets);
+void ProxArq(GtkButton *button, Widgets *widgets);
+void updateIndexTitleTotalPages(Widgets *widgets);
+void updateIndexTitleCurrentPage(Widgets *widgets, int n);
 
 #endif

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "GUI.h"
 
 /* Função para inicializar a árvore Patricia como NULL */
 void inicializaPatricia (TipoPatNo **raiz) {
@@ -159,18 +160,18 @@ TipoPatNo * InserePatricia (char *k, TipoPatNo **t, int idDoc) {
 }
 
 /* Função para imprimir a árvore Patricia em ordem */
-void imprimePatricia (TipoPatNo *no) {
+void imprimePatricia (TipoPatNo *no, char *saida) {
     if(no == NULL) {
         printf("Arvore esta vazia\n");
         return;
     }
     if (ConfereTipoNo(no)) { /* Se for nó externo, o nó deve ser impresso */
-        printf("[%s] == ",no->NO.NExterno.Palavra);
-        imprimeLista(&(no->NO.NExterno.Lista));
+        sprintf(saida,"%s[%s] == ",saida,no->NO.NExterno.Palavra);
+        imprimeLista(&(no->NO.NExterno.Lista),saida);
         return;
     }
     /* Se for nó interno */
-    imprimePatricia(no->NO.NInterno.Esq); /* Chamada recursivamente para o nó à esquerda */
-    imprimePatricia(no->NO.NInterno.Dir); /* Chamada recursivamente para o nó à direita */
+    imprimePatricia(no->NO.NInterno.Esq,saida); /* Chamada recursivamente para o nó à esquerda */
+    imprimePatricia(no->NO.NInterno.Dir,saida); /* Chamada recursivamente para o nó à direita */
 
 }

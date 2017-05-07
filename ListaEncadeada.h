@@ -42,7 +42,7 @@ void inicializaLista (TLista *Lista);
 void reinicializaLista (TLista *Lista);
 void insereCelulaEmLista (TLista *Lista, TCelula *celula);
 void insereLista (TLista *Lista, TItem *item);
-void imprimeLista(TLista *Lista);
+void imprimeLista(TLista *Lista, char *saida);
 void OrdenaListaArquivos (TLista *ListaArquivos);
 
 #endif // LISTAENCADEADA_H_INCLUDED

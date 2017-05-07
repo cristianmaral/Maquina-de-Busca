@@ -43,16 +43,16 @@ void insereLista (TLista *Lista, TItem *item) {
 }
 
 /* Imprime o par ordenado (qtde,idDoc) */
-void imprimeLista (TLista *Lista) {
+void imprimeLista (TLista *Lista, char* saida) {
     TCelula *aux;
     aux = Lista->primeiro->prox;
 
     while (aux != NULL) {
         if(aux->prox == NULL)
-            printf("<%d,%d>\n", aux->item.termo.qtde, aux->item.termo.idDoc);
+            sprintf(saida,"%s<%d,%d>\n", saida, aux->item.termo.qtde, aux->item.termo.idDoc);
         /* Imprime "->" no final do par ordenado */
         else
-            printf("<%d,%d> -> ", aux->item.termo.qtde, aux->item.termo.idDoc);
+            sprintf(saida,"%s<%d,%d> -> ", saida, aux->item.termo.qtde, aux->item.termo.idDoc);
 
         aux = aux->prox;
     }

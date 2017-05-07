@@ -34,6 +34,8 @@ void openAboutWindow (GtkButton *button, Widgets *widgets){
 	gtk_widget_hide(GTK_WIDGET(widgets->AboutWindow));
 }
 void goSearchWindow (GtkButton *button, Widgets *widgets){
+	char *texto = (char*)gtk_entry_get_text(GTK_ENTRY(widgets->main_searchentry));
+	/*
 	int i, j, pos = 0;
 	gchar *label = (gchar*)malloc(sizeof(gchar)*palavras.tamanho*20);
 	TCelula *iterator = palavras.primeiro->prox;
@@ -44,7 +46,10 @@ void goSearchWindow (GtkButton *button, Widgets *widgets){
 		}
 	}
 	gtk_label_set_text(widgets->search_title, label);
+	*/
+	BuscaTermos(raizPat,texto);
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->search_box));
+
 }
 void closeProgram (GtkButton *button, Widgets *widgets){
 	gtk_main_quit();
@@ -65,6 +70,12 @@ void updateFileTitle(Widgets *widgets){
 	gchar *label = (gchar*)malloc(sizeof(str)+sizeof(gchar)*3);
 	sprintf(label,"%d%s",n,str+1);
 	gtk_label_set_text(widgets->files_title, label);
+}
+void updateIndexTitle(Widgets *widgets){
+	gint n_files = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(widgets->files_lista_dados),NULL);
+	gchar *label = (gchar*)malloc(sizeof(gchar)*22); // 18 chars para "Total de Arquivos ", 4 chars para o numero de arquivos
+	sprintf(label,"Total de Arquivos %d",n_files);
+	gtk_label_set_text(widgets->index_title, label);
 }
 void remFile (GtkButton *button, Widgets *widgets){
 	if(gtk_tree_selection_get_selected(widgets->files_treeview_selection,NULL,widgets->iter)){
@@ -96,16 +107,19 @@ void buildIndex (GtkButton *button, Widgets *widgets){
 	MontaIndiceInvertido();
 	gtk_widget_hide(GTK_WIDGET(widgets->LoadingWindow));
 	gtk_widget_set_sensitive(GTK_WIDGET(widgets->index_build_button),FALSE);
+	gtk_widget_set_sensitive(GTK_WIDGET(widgets->index_visualize_button),TRUE);
+	gtk_widget_set_sensitive(GTK_WIDGET(widgets->main_searchbutton),TRUE);
+	updateIndexTitle(widgets);
 }
 void goIndexWindow (GtkButton *button, Widgets *widgets){
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(widgets->index_textviewer);
+	char *texto = (char*)malloc(sizeof(char)*30*100); //30 caracteres por palavra distinta, inferindo que palavras distintas sao 100
+	imprimePatricia(raizPat,texto);
+	gtk_text_buffer_set_text(buffer,(const gchar*)texto,-1);
+	gtk_text_view_set_buffer(widgets->index_textviewer,buffer);
 	gtk_stack_set_visible_child(widgets->PilhaDeJanelas,GTK_WIDGET(widgets->index_box));
-	gint height;
-	gtk_widget_get_preferred_height(GTK_WIDGET(widgets->index_lista_viewer),NULL,&height);
-	gtk_adjustment_configure(widgets->index_scrollbar_config,0.0,0.0,100.0,1.0,1.0,height);
 }
 void cancelBuildIndex (GtkButton *button, Widgets *widgets){
 	cancela = TRUE;
 	gtk_widget_hide(GTK_WIDGET(widgets->LoadingWindow));
 }
-
-

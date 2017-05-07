@@ -61,14 +61,7 @@ void gtkMain(int argc, char *argv[]){
 		//end index_header
 	widgets.index_inner_box = GTK_SCROLLED_WINDOW(gtk_builder_get_object(gtkBuilder, "index_inner_box"));
 		//begin index_inner_box
-	widgets.index_lista_viewer = GTK_TREE_VIEW(gtk_builder_get_object(gtkBuilder, "index_lista_viewer"));
-			//begin index_lista_viewer
-	widgets.index_treeview_selection = GTK_TREE_SELECTION(gtk_builder_get_object(gtkBuilder, "index_treeview_selection"));
-	widgets.index_lista_colunaPalavra = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "index_lista_colunaPalavra"));
-	widgets.index_lista_colunaArquivo1 = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "index_lista_colunaArquivo1"));
-	widgets.index_lista_colunaArquivo2 = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "index_lista_colunaArquivo2"));
-	widgets.index_lista_colunaArquivo3 = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "index_lista_colunaArquivo3"));
-			//end index_lista_viewer
+	widgets.index_textviewer = GTK_TEXT_VIEW(gtk_builder_get_object(gtkBuilder, "index_textviewer"));
 		//end index_inner_box
 	//inside files_box
 	widgets.files_header = GTK_HEADER_BAR(gtk_builder_get_object(gtkBuilder, "files_header"));
@@ -158,6 +151,9 @@ void gtkMain(int argc, char *argv[]){
 	/* Mostra a interface do glade */
 	gtk_widget_show(GTK_WIDGET(widgets.MainWindow));
 	
+	gtk_widget_set_sensitive(GTK_WIDGET(widgets.index_visualize_button),FALSE);
+	gtk_widget_set_sensitive(GTK_WIDGET(widgets.main_searchbutton),FALSE);
+
 	gtk_main();
 }
 gboolean func(GtkEntryCompletion *completion,const gchar *key,GtkTreeIter *iter,gpointer user_data){

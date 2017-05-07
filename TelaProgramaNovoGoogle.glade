@@ -331,31 +331,13 @@
                     <signal name="clicked" handler="goMainWindow" swapped="no"/>
                   </object>
                 </child>
-                <child>
-                  <object class="GtkButton" id="index_pagedownbutton">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="tooltip_text" translatable="yes">Mudar para página anterior</property>
-                    <property name="always_show_image">True</property>
-                    <child>
-                      <object class="GtkImage" id="index_pagedownbutton_image">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-go-back</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
                 <child type="title">
                   <object class="GtkLabel" id="index_title">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">1 de 30</property>
+                    <property name="label" translatable="yes">Total de Arquivos 0</property>
                     <property name="justify">center</property>
+                    <property name="lines">1</property>
                   </object>
                 </child>
                 <child>
@@ -380,25 +362,6 @@
                     <property name="position">1</property>
                   </packing>
                 </child>
-                <child>
-                  <object class="GtkButton" id="index_pageupbutton">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="tooltip_text" translatable="yes">Mudar para próxima página</property>
-                    <child>
-                      <object class="GtkImage" id="index_pageupbutton_image">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-go-forward</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="pack_type">end</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -414,37 +377,11 @@
                 <property name="hscrollbar_policy">never</property>
                 <property name="shadow_type">in</property>
                 <child>
-                  <object class="GtkTreeView" id="index_lista_viewer">
+                  <object class="GtkTextView" id="index_textviewer">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="vadjustment">index_scrollbar_config</property>
-                    <property name="model">index_lista_dados</property>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection" id="index_treeview_selection"/>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="Palavra">
-                        <property name="title" translatable="yes">Palavra</property>
-                        <property name="expand">True</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="Palavra_textrenderer"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="Arquivo">
-                        <property name="title" translatable="yes">Arquivo</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="Arquivo_textrenderer"/>
-                          <attributes>
-                            <attribute name="text">1</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                    </child>
+                    <property name="editable">False</property>
+                    <property name="monospace">True</property>
                   </object>
                 </child>
               </object>
