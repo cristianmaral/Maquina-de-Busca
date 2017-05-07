@@ -41,7 +41,6 @@ TipoPatNo * CriaNoExt (char *k, int idDoc) {
     no = (TipoPatNo *)malloc(sizeof(TipoPatNo));
     no->nt = Externo;
     strcpy(no->NO.NExterno.Palavra, k); /* Copia a palavra k para o campo palavra do novo nó externo */
-
     inicializaLista(&(no->NO.NExterno.Lista));
     insereLista(&(no->NO.NExterno.Lista), &item);
     no->NO.NExterno.Lista.tamanho = 1; /* Primeira célula da lista */
@@ -81,10 +80,10 @@ float RetornaPesoTermo (char *k, TipoPatNo *t, int idDoc) {
 
 }
 
-TipoPatNo * InsereEntre (char *k, TipoPatNo **t, short i, int idDoc, char Caractere) {
+TipoPatNo * InsereEntre (char *k, TipoPatNo **t, int i, int idDoc, char Caractere) {
     TipoPatNo *p;
 
-    if (ConfereTipoNo(*t) || i < (*t)->NO.NInterno.Index) {
+    if (ConfereTipoNo(*t) || i < (int)(*t)->NO.NInterno.Index) {
         p = CriaNoExt(k, idDoc);
         /* Se k[i] <= caractere, cria um nó interno com o indice i e o caractere, o filho à esquerda desse novo nó interno passa a ser
            o nó p e o filho à direita passa a ser o nó t */
@@ -165,15 +164,13 @@ void imprimePatricia (TipoPatNo *no) {
         printf("Arvore esta vazia\n");
         return;
     }
-    if(!ConfereTipoNo(no)) /* Se for nó interno */
-        imprimePatricia(no->NO.NInterno.Esq); /* Chamada recursivamente para o nó à esquerda */
-
     if (ConfereTipoNo(no)) { /* Se for nó externo, o nó deve ser impresso */
         printf("[%s] == ",no->NO.NExterno.Palavra);
         imprimeLista(&(no->NO.NExterno.Lista));
         return;
     }
+    /* Se for nó interno */
+    imprimePatricia(no->NO.NInterno.Esq); /* Chamada recursivamente para o nó à esquerda */
+    imprimePatricia(no->NO.NInterno.Dir); /* Chamada recursivamente para o nó à direita */
 
-    if(!ConfereTipoNo(no)) /* Se for nó interno */
-        imprimePatricia(no->NO.NInterno.Dir); /* Chamada recursivamente para o nó à direita */
 }

@@ -29,6 +29,7 @@ void insereCelulaEmLista (TLista *Lista, TCelula *celula) {
     Lista->ultimo->prox = celula;
     Lista->ultimo = celula;
     Lista->tamanho++;
+    celula->prox = NULL;
 }
 
 /* Insere um item na lista */
@@ -40,6 +41,7 @@ void insereLista (TLista *Lista, TItem *item) {
     Lista->ultimo->prox = aux;
     Lista->ultimo = aux;
     Lista->tamanho++;
+    aux->prox = NULL;
 }
 
 /* Imprime o par ordenado (qtde,idDoc) */

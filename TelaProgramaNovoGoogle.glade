@@ -108,11 +108,7 @@
     <columns>
       <!-- column-name Palavra -->
       <column type="gchararray"/>
-      <!-- column-name Arquivo1 -->
-      <column type="guint"/>
-      <!-- column-name Arquivo2 -->
-      <column type="guint"/>
-      <!-- column-name Arquivo3 -->
+      <!-- column-name Arquivo -->
       <column type="guint"/>
     </columns>
   </object>
@@ -358,7 +354,7 @@
                   <object class="GtkLabel" id="index_title">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">1 a 3 de 30</property>
+                    <property name="label" translatable="yes">1 de 30</property>
                     <property name="justify">center</property>
                   </object>
                 </child>
@@ -430,11 +426,23 @@
                       <object class="GtkTreeViewColumn" id="Palavra">
                         <property name="title" translatable="yes">Palavra</property>
                         <property name="expand">True</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="Palavra_textrenderer"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
                       </object>
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="Arquivo">
                         <property name="title" translatable="yes">Arquivo</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="Arquivo_textrenderer"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -528,11 +536,23 @@
                       <object class="GtkTreeViewColumn" id="NomeDocumento">
                         <property name="title" translatable="yes">Nome Do Documento</property>
                         <property name="expand">True</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="NomeDocumento_textrenderer"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
                       </object>
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="NRecorrencias">
                         <property name="title" translatable="yes">Nº De Recorrencias</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="NRecorrencias_textrenderer"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -574,7 +594,7 @@
                   <object class="GtkLabel" id="files_title">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">3 Arquivos Adicionados</property>
+                    <property name="label" translatable="yes">0 Arquivos Adicionados</property>
                     <property name="justify">center</property>
                   </object>
                 </child>
@@ -737,87 +757,5 @@
       <!-- column-name Descricao -->
       <column type="gchararray"/>
     </columns>
-  </object>
-  <object class="GtkFileChooserDialog" id="SelecionadorDeArquivo">
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Maquina De Busca - Escolha de arquivo</property>
-    <property name="type_hint">dialog</property>
-    <property name="decorated">False</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="selecionador_box">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="selecionador_buttonbox">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="selecionador_selectbutton">
-                <property name="label" translatable="yes">Selecionar</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Selecionar arquivo marcado</property>
-                <signal name="clicked" handler="selecionarArquivo" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="selecionador_cancelbutton">
-                <property name="label" translatable="yes">Cancelar</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Cancelar seleção de arquivo</property>
-                <signal name="clicked" handler="cancelarSelecao" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkComboBox" id="selecionador_combobox_extensao">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="tooltip_text" translatable="yes">Filtrar por extensão</property>
-            <property name="model">selecionador_combobox_extensao_dados</property>
-            <property name="id_column">0</property>
-            <signal name="changed" handler="filtrarExtensao" swapped="no"/>
-            <child>
-              <object class="GtkCellRendererText" id="Descricao"/>
-            </child>
-            <child>
-              <object class="GtkCellRendererText" id="ExtensaoSuportada">
-                <property name="cell_background_gdk">#000000000000</property>
-                <property name="background_gdk">#000000000000</property>
-                <property name="foreground_gdk">#000000000000</property>
-              </object>
-              <attributes>
-                <attribute name="markup">0</attribute>
-              </attributes>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
   </object>
 </interface>

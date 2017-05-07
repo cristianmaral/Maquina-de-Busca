@@ -47,7 +47,7 @@ void percorre (TipoTSTNo* no, char* palavra,char *prefixo, int indice,TLista *re
 {
     TCelula *temp = (TCelula*)malloc(sizeof(TCelula));
     temp->prox = NULL;
-    temp->palavra = (char*)malloc(sizeof(char)*40);
+    temp->item.palavra = (char*)malloc(sizeof(char)*40);
     if (no)
     {
         /* Primeiro percorre a subárvore à esquerda */
@@ -58,7 +58,7 @@ void percorre (TipoTSTNo* no, char* palavra,char *prefixo, int indice,TLista *re
         if (no->fimString)
         {
             palavra[indice+1] = '\0';
-	    sprintf(temp->palavra,"%s%s",prefixo,palavra);
+	    sprintf(temp->item.palavra,"%s%s",prefixo,palavra);
 	    insereCelulaEmLista(retorno,temp);
         }
 

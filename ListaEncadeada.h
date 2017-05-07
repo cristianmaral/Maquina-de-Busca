@@ -17,7 +17,7 @@ typedef struct {
         struct {
             /* Variáveis quando estamos tratando de uma Lista de Arquivos */
             FILE *entrada; /* Variável utilizada apenas quando estamos tratando de uma Lista de Arquivos */
-            char nome_arquivo[50]; /* String utilizada para guardar o nome do arquivo */
+            char *nome_arquivo; /* String utilizada para guardar o nome do arquivo */
             int termos_distintos;
             int idDoc;
             float relevancia; /* Relevancia do documento de acordo com uma busca */
@@ -28,17 +28,16 @@ typedef struct {
 
 /* Estrutura de uma célula */
 typedef struct Celula {
-    TItem item; /* Um item */
-    struct Celula *prox; /* Ponteiro para a próxima célula */
+	TItem item; /* Um item */
+	struct Celula *prox; /* Ponteiro para a próxima célula */
 } TCelula;
 
 /* Estrutura da Lista Encadeada */
 typedef struct {
-    TCelula *primeiro; /* Ponteiro para a célula cabeça  */
-    TCelula *ultimo; /* Ponteiro para a última célula da lista */
-    int tamanho; /* Tamanho da lista */
+	TCelula *primeiro; /* Ponteiro para a célula cabeça  */
+	TCelula *ultimo; /* Ponteiro para a última célula da lista */
+	int tamanho; /* Tamanho da lista */
 } TLista;
-
 void inicializaLista (TLista *Lista);
 void reinicializaLista (TLista *Lista);
 void insereCelulaEmLista (TLista *Lista, TCelula *celula);

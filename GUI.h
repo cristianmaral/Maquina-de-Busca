@@ -2,7 +2,7 @@
 #define GUI_H_INCLUDED
 #include "TST.h"
 #include <gtk/gtk.h>
-TipoTSTNo *raiz;
+//TipoTSTNo *raiz;
 typedef struct {
 	GtkWindow *MainWindow;
 	GtkStack *PilhaDeJanelas;

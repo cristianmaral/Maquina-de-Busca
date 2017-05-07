@@ -3,15 +3,20 @@
 
 #include "Patricia.h"
 #include "TST.h"
+#include <gtk/gtk.h>
+TLista *ListaArquivos;
+TipoPatNo *raizPat;
+TipoTSTNo *raizTST;
+gboolean cancela;
 
 char *strlwr (char *str);
-void AdicionaArquivo (TLista *ListaArquivos);
-void FechaArquivos (TLista *ListaArquivos);
+void AdicionaArquivo (char* nome_arq);
+void FechaArquivos ();
 void CalculaPesos (TipoPatNo *t, int N);
 void CalculaTermosDistintos (TipoPatNo *no, TCelula *arq, int idDoc);
-void CalculaRelevancia (TipoPatNo *no, TLista *ListaArquivos, char **palavras, int n_termos);
-void MontaIndiceInvertido (TLista *ListaArquivos, TipoPatNo **raizPat, TipoTSTNo **raizTST);
-void BuscaTermos (TipoPatNo *no, TLista *ListaArquivos, char *string);
+void CalculaRelevancia (TipoPatNo *no, char **palavras, int n_termos);
+void MontaIndiceInvertido();
+void BuscaTermos (TipoPatNo *no, char *string);
 
 
 
