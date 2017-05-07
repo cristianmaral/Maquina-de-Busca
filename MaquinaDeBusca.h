@@ -5,7 +5,7 @@
 #include "TST.h"
 
 char *strlwr (char *str);
-void AdicionaArquivo (TLista *ListaArquivos);
+void AdicionaArquivo (TLista *ListaArquivos, char *nome_arq);
 void FechaArquivos (TLista *ListaArquivos);
 void CalculaPesos (TipoPatNo *t, int N);
 void CalculaTermosDistintos (TipoPatNo *no, TCelula *arq, int idDoc);
