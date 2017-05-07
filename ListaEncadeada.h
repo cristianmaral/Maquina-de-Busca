@@ -22,7 +22,7 @@ typedef struct {
             int idDoc;
             float relevancia; /* Relevancia do documento de acordo com uma busca */
         } arq;
-	char* palavra;
+        char *palavra;
     };
 } TItem;
 
@@ -34,14 +34,16 @@ typedef struct Celula {
 
 /* Estrutura da Lista Encadeada */
 typedef struct {
-    TCelula *primeiro; /* Ponteiro para a célula cabeça  */
-    TCelula *ultimo; /* Ponteiro para a última célula da lista */
-    int tamanho; /* Tamanho da lista */
+	TCelula *primeiro; /* Ponteiro para a célula cabeça  */
+	TCelula *ultimo; /* Ponteiro para a última célula da lista */
+	int tamanho; /* Tamanho da lista */
 } TLista;
 
 void inicializaLista (TLista *Lista);
+void reinicializaLista (TLista *Lista);
+void insereCelulaEmLista (TLista *Lista, TCelula *celula);
 void insereLista (TLista *Lista, TItem *item);
 void imprimeLista(TLista *Lista);
-void insereCelulaEmLista (TLista *Lista, TCelula *celula);
-void imprimeListaDePalavras (TLista *Lista);
+void OrdenaListaArquivos (TLista *ListaArquivos);
+
 #endif // LISTAENCADEADA_H_INCLUDED

@@ -36,7 +36,7 @@ TipoPatNo * CriaNoExt (char *k, int idDoc) {
     TItem item; /* Criação de um item temporário (auxiliar) para ser inserido na lista */
     item.termo.qtde = 1; /* Quando é a primeira palavra ocorrente no idDoc, sua quantidade é 1 */
     item.termo.idDoc = idDoc;
-    item.termo.peso = 0.0; /* Valor inicial do peso da palavra no idDoc */
+    item.termo.peso = (float)0; /* Valor inicial do peso da palavra no idDoc passado como parâmetro */
 
     no = (TipoPatNo *)malloc(sizeof(TipoPatNo));
     no->nt = Externo;
@@ -57,14 +57,14 @@ float RetornaPesoTermo (char *k, TipoPatNo *t, int idDoc) {
         celula = t->NO.NExterno.Lista.primeiro->prox; /* Passa a apontar para a primeira célula da lista */
         if (strcmp(k, t->NO.NExterno.Palavra) == 0){ /* Se a palavra k procurada for igual à palavra do nó externo */
             while(celula != NULL){
-                if(celula->item.termo.idDoc == idDoc) {/* Confere se a palavra se encontra no idDoc procurado */
-                    /* Achou a palavra k no dado idDoc */
+                if(celula->item.termo.idDoc == idDoc) {/* Confere se a palavra se encontra no idDoc passado como parâmetro */
+                    /* Achou a palavra k no idDoc passado como parâmetro*/
                     return celula->item.termo.peso;
                 }
                 else
                     celula = celula->prox; /* Procura na próxima célula da lista */
             }
-            if(celula == NULL) { /* Chegou na última célula e não encontrou a palavra com o dado idDoc */
+            if(celula == NULL) { /* Chegou na última célula e não encontrou a palavra com o idDoc passado como parâmetro */
                 return (float)0;
             }
         }
@@ -148,7 +148,7 @@ TipoPatNo * InserePatricia (char *k, TipoPatNo **t, int idDoc) {
                     /* Cria uma nova célula com a palavra k cujo campo idDoc seja o idDoc passado como parâmetro */
                     item.termo.idDoc = idDoc;
                     item.termo.qtde = 1;
-                    item.termo.peso = 0;
+                    item.termo.peso = (float)0;
                     insereLista(&(p->NO.NExterno.Lista), &item); /* Insere a célula na lista */
                 }
             return (*t);
