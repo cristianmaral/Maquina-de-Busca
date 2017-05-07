@@ -165,13 +165,18 @@ void imprimePatricia (TipoPatNo *no, char *saida) {
         printf("Arvore esta vazia\n");
         return;
     }
+    sprintf(saida,"");
+    imprimePatriciaEnc(no,saida);
+
+}
+void imprimePatriciaEnc (TipoPatNo *no, char *saida) {
     if (ConfereTipoNo(no)) { /* Se for nó externo, o nó deve ser impresso */
         sprintf(saida,"%s[%s] == ",saida,no->NO.NExterno.Palavra);
         imprimeLista(&(no->NO.NExterno.Lista),saida);
         return;
     }
     /* Se for nó interno */
-    imprimePatricia(no->NO.NInterno.Esq,saida); /* Chamada recursivamente para o nó à esquerda */
-    imprimePatricia(no->NO.NInterno.Dir,saida); /* Chamada recursivamente para o nó à direita */
+    imprimePatriciaEnc(no->NO.NInterno.Esq,saida); /* Chamada recursivamente para o nó à esquerda */
+    imprimePatriciaEnc(no->NO.NInterno.Dir,saida); /* Chamada recursivamente para o nó à direita */
 
 }

@@ -34,7 +34,7 @@ typedef struct {
 	GtkTreeView *search_lista_viewer;
 			//begin search_lista_viewer
 	GtkTreeSelection *search_treeview_selection;
-	GtkTreeViewColumn *NomeDocumento, *NRecorrencias;
+	GtkTreeViewColumn *IdDocumento, *CaminhoDocumento;
 			//end search_lista_viewer
 		//end search_inner_box
 	//inside index_box

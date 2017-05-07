@@ -40,5 +40,6 @@ TipoPatNo* InsereEntre (char *k, TipoPatNo **t, int i, int idDoc, char Caractere
 TipoPatNo* InserePatricia (char *k, TipoPatNo **t, int idDoc); /* A função Insere encapsula a função InsereEntre */
 
 void imprimePatricia (TipoPatNo *no, char *saida);
+void imprimePatriciaEnc (TipoPatNo *no, char *saida);
 
 #endif // PATRICIA_H_INCLUDED

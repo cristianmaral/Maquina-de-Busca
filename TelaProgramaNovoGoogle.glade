@@ -134,10 +134,10 @@
   </object>
   <object class="GtkListStore" id="search_lista_dados">
     <columns>
-      <!-- column-name NomeDocumento -->
+      <!-- column-name IdDocumento -->
       <column type="gchararray"/>
-      <!-- column-name NRecorrencias -->
-      <column type="guint"/>
+      <!-- column-name CaminhoDocumento -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkAdjustment" id="search_scrollbar_config">
@@ -470,11 +470,10 @@
                       <object class="GtkTreeSelection" id="search_treeview_selection"/>
                     </child>
                     <child>
-                      <object class="GtkTreeViewColumn" id="NomeDocumento">
-                        <property name="title" translatable="yes">Nome Do Documento</property>
-                        <property name="expand">True</property>
+                      <object class="GtkTreeViewColumn" id="IdDocumento">
+                        <property name="title" translatable="yes">ID do documento</property>
                         <child>
-                          <object class="GtkCellRendererText" id="NomeDocumento_textrenderer"/>
+                          <object class="GtkCellRendererText" id="IdDocumento_textrenderer"/>
                           <attributes>
                             <attribute name="text">0</attribute>
                           </attributes>
@@ -482,10 +481,11 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkTreeViewColumn" id="NRecorrencias">
-                        <property name="title" translatable="yes">Nº De Recorrencias</property>
+                      <object class="GtkTreeViewColumn" id="CaminhoDocumento">
+                        <property name="title" translatable="yes">Caminho Do Documento</property>
+                        <property name="expand">True</property>
                         <child>
-                          <object class="GtkCellRendererText" id="NRecorrencias_textrenderer"/>
+                          <object class="GtkCellRendererText" id="NomeDocumento_textrenderer"/>
                           <attributes>
                             <attribute name="text">1</attribute>
                           </attributes>
