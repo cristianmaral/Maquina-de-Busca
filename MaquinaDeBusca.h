@@ -10,7 +10,7 @@ void FechaArquivos (TLista *ListaArquivos);
 void CalculaPesos (TipoPatNo *t, int N);
 void CalculaTermosDistintos (TipoPatNo *no, TCelula *arq, int idDoc);
 void CalculaRelevancia (TipoPatNo *no, TLista *ListaArquivos, char **palavras, int n_termos);
-void MontaIndiceInvertido (TLista *ListaArquivos);
+void MontaIndiceInvertido (TLista *ListaArquivos, TipoPatNo **raizPat, TipoTSTNo **raizTST);
 void BuscaTermos (TipoPatNo *no, TLista *ListaArquivos, char *string);
 
 
