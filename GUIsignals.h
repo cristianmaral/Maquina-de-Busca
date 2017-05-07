@@ -7,6 +7,7 @@ TLista palavras;
 //Help Funcions
 void updateFileTitle(Widgets *widgets);
 void splitPath(gchar *filepath,gchar **filename);
+void updateSearchTitle (char *entrada, char *saida);
 
 
 //Signals
