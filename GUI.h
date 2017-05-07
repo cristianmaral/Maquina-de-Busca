@@ -34,7 +34,7 @@ typedef struct {
 	GtkTreeView *search_lista_viewer;
 			//begin search_lista_viewer
 	GtkTreeSelection *search_treeview_selection;
-	GtkTreeViewColumn *NomeDocumento, *NRecorrencias;
+	GtkTreeViewColumn *IdDocumento, *CaminhoDocumento;
 			//end search_lista_viewer
 		//end search_inner_box
 	//inside index_box
@@ -46,11 +46,7 @@ typedef struct {
 		//end index_header
 	GtkScrolledWindow *index_inner_box;
 		//begin index_inner_box
-	GtkTreeView *index_lista_viewer;
-			//begin index_lista_viewer
-	GtkTreeSelection *index_treeview_selection;
-	GtkTreeViewColumn *index_lista_colunaPalavra,*index_lista_colunaArquivo1,*index_lista_colunaArquivo2,*index_lista_colunaArquivo3;
-			//end index_lista_viewer
+	GtkTextView *index_textviewer;
 		//end index_inner_box
 	//inside files_box
 	GtkHeaderBar *files_header;

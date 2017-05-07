@@ -7,7 +7,7 @@ TLista palavras;
 //Help Funcions
 void updateFileTitle(Widgets *widgets);
 void splitPath(gchar *filepath,gchar **filename);
-void updateSearchTitle (char *entrada, char *saida);
+void updateSearchTitle (char *entrada, char **saida);
 
 
 //Signals
@@ -22,5 +22,9 @@ void buildIndex (GtkButton *button, Widgets *widgets);
 void goIndexWindow (GtkButton *button, Widgets *widgets);
 void cancelBuildIndex (GtkButton *button, Widgets *widgets);
 void openAboutWindow (GtkButton *button, Widgets *widgets);
+void ArqAnt(GtkButton *button, Widgets *widgets);
+void ProxArq(GtkButton *button, Widgets *widgets);
+void updateIndexTitleTotalPages(Widgets *widgets);
+void updateIndexTitleCurrentPage(Widgets *widgets, int n);
 
 #endif

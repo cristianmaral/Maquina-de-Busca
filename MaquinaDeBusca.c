@@ -97,7 +97,7 @@ void CalculaTermosDistintos (TipoPatNo *no, TCelula *arq, int idDoc) {
 
 /* Calcula a relevância de todos os documentos da lista de arquivos de acordo com todos os termos de busca */
 void CalculaRelevancia (TipoPatNo *no, char **palavras, int n_termos) {
-    float somatorio = (float)0;
+    float somatorio = 0.0;
     int i;
     TCelula *celula;
 
@@ -107,8 +107,8 @@ void CalculaRelevancia (TipoPatNo *no, char **palavras, int n_termos) {
             somatorio += RetornaPesoTermo(palavras[i], no, celula->item.arq.idDoc);
         }
         /* Calcula a relevância */
-        celula->item.arq.relevancia = (float)(somatorio / celula->item.arq.termos_distintos);
-        somatorio = (float)0; /* Somatório é zerado para começar a contar para o próximo documento da lista de arquivos */
+        celula->item.arq.relevancia = somatorio / (float)celula->item.arq.termos_distintos;
+        somatorio = 0.0; /* Somatório é zerado para começar a contar para o próximo documento da lista de arquivos */
         celula = celula->prox; /* Passa para o próximo documento */
     }
     OrdenaListaArquivos(ListaArquivos);
