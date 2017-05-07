@@ -197,4 +197,6 @@ void MontaIndiceInvertido () {
 	    raizTST = raizTSTTemp;
     }
     else printf("Cancelado 2\n");
+    free(raizTSTTemp);
+    free(raizPatTemp);
 }
