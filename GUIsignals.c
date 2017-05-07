@@ -108,4 +108,62 @@ void cancelBuildIndex (GtkButton *button, Widgets *widgets){
 	gtk_widget_hide(GTK_WIDGET(widgets->LoadingWindow));
 }
 
+void updateSearchTitle (char *entrada, char *saida) {
+    int q_termos = 0; /* Conta a quantidade de termos de busca */
+    char aux[50]; /* String auxiliar para guardar temporariamente cada palavra de busca separadamente */
+    char *palavras[30]; /* Vetor de Strings - Consideramos o máximo de 30 palavras de busca */
+    char c; /* Caractere auxiliar para ler caractere por caractere da string que contém todas as palavras de busca */
+    int i = 0; /* Indica a posição onde c deve ser armazenado na string aux */
+    int j = 0; /* Indica a posição onde a string aux deve ser armazenada no vetor palavras */
+    int cont = 0; /* Indica a posição atual da string que contém todas as palavras de busca */
 
+    strlwr(entrada); /* Passa a string inteira para minúscula */
+    saida[0] = '\0';
+
+    /* Enquanto não chegar no final da string */
+    while (entrada[cont] != '\0') {
+        c = entrada[cont];
+        if (c != ' ') { /* Enquanto o caractere não for um espaço, atribui-se ele à posição i da string aux */
+            aux[i] = c;
+            i++;
+        }
+        /* Indica o final de uma palavra */
+        if (c == ' ') {
+            aux[i] = '\0';
+            i = 0; /* Para armazenar a primeira letra da proxima palavra na posição 0 da string aux */
+            palavras[j] = strdup(aux); /* Insere aux na posição j do vetor de palavras */
+            j++; /* Incrementa o j */
+            q_termos++; /* Incrementa a quantidade de palavras */
+        }
+        cont++; /* Passa para a próxima posição da string */
+    }
+    /* Tratando a última palavra de busca */
+    aux[i-1] = '\0';
+    q_termos++; /* Incrementa a quantidade de termos de busca */
+    palavras[j] = strdup(aux); /* Atribui a string auxiliar à j-ésima string do vetor de strings */
+    /* Insere os termos de busca na string de saída */
+    for (i=0; i<q_termos; i++) {
+        if (i == 0) {
+            strcpy(saida, palavras[i]);
+            strcat(saida, ", ");
+        }
+        else if (i < q_termos - 1) {
+            strcat(saida, palavras[i]);
+            strcat(saida, ", ");
+        }
+        else
+            strcat(saida, palavras[i]);
+    }
+    if (strlen(saida) > 45) {
+        i = 44;
+        c = saida[i];
+        while (c != ',') {
+            i--;
+            c = saida[i];
+            if (c == ',') {
+                saida[i] = saida[i+1] = saida[i+2] = '.';
+                saida[i+3] = '\0';
+            }
+        }
+    }
+}
