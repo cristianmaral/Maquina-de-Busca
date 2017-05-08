@@ -6,7 +6,7 @@
 #include <math.h>
 
 /* Função para converter todos os caracteres da string passada como parâmetro para minúsculo */
-char *strlwr(char *str) {
+char* strlower (char *str) {
     unsigned char *p = (unsigned char *)str;
 
     while (*p) {
@@ -16,16 +16,16 @@ char *strlwr(char *str) {
     return str;
 }
 
+/* Função para remover um arquivo da lista de arquivos abertos */
 void RetiraArquivo (char *nome_arq) {
-	printf("%s\n",nome_arq);
     TCelula *iterator, *temp;
-    for(iterator = ListaArquivos->primeiro;iterator != ListaArquivos->ultimo;iterator = iterator->prox){
+    for(iterator = ListaArquivos.primeiro;iterator != ListaArquivos.ultimo;iterator = iterator->prox){
     	if(!strcmp(iterator->prox->item.arq.nome_arquivo,nome_arq)){
-		if(iterator->prox == ListaArquivos->ultimo){
+		if(iterator->prox == ListaArquivos.ultimo){
 			iterator->prox = NULL;
-			fclose(ListaArquivos->ultimo->item.arq.entrada);
-			free (ListaArquivos->ultimo);
-			ListaArquivos->ultimo = iterator;
+			fclose(ListaArquivos.ultimo->item.arq.entrada);
+			free (ListaArquivos.ultimo);
+			ListaArquivos.ultimo = iterator;
 			return;
 		}
 		temp = iterator->prox;
@@ -38,21 +38,20 @@ void RetiraArquivo (char *nome_arq) {
 
 /* Função para ler um arquivo e o inserir na lista de arquivos */
 void AdicionaArquivo (char *nome_arq) {
-	printf("%s\n",nome_arq);
     TItem *item = (TItem*)malloc(sizeof(TItem));
     item->arq.nome_arquivo = nome_arq;
     item->arq.entrada = fopen(item->arq.nome_arquivo, "r");
     if (item->arq.entrada) {
         item->arq.termos_distintos = 0;
         item->arq.relevancia = 0.0;
-        insereLista(ListaArquivos, item);
+        insereLista(&ListaArquivos, item);
     }
 }
 
 /* Fecha todos os arquivos da lista de arquivos */
 void FechaArquivos () {
     TCelula *celula;
-    celula = ListaArquivos->primeiro->prox;
+    celula = ListaArquivos.primeiro->prox;
     while (celula != NULL) {
         fclose(celula->item.arq.entrada); /* Fecha o arquivo atual */
         celula = celula->prox; /* Passa para a próxima célula */
@@ -63,10 +62,8 @@ void FechaArquivos () {
 void CalculaPesos (TipoPatNo *no, int N) {
     TCelula *celula;
     int d; /* Número de documentos na coleção que contêm o termo k */
-    if(no == NULL) {
-        printf("Arvore esta vazia\n");
+    if(no == NULL)
         return;
-    }
     if(!ConfereTipoNo(no)) /* Se for nó interno */
         CalculaPesos(no->NO.NInterno.Esq, N); /* Chamada recursivamente para o nó à esquerda */
 
@@ -112,13 +109,46 @@ void CalculaTermosDistintos (TipoPatNo *no, TCelula *arq, int idDoc) {
         CalculaTermosDistintos(no->NO.NInterno.Dir, arq, idDoc);
 }
 
+/* Função para retornar o peso do termo k no idDoc passado como parâmetro */
+float RetornaPesoTermo (char *k, TipoPatNo *t, int idDoc) {
+    TCelula *celula; /* Célula auxiliar para percorrer a lista do nó externo encontrado */
+
+    if (ConfereTipoNo(t)) /* Se o nó for externo */
+    {
+        celula = t->NO.NExterno.Lista.primeiro->prox; /* Passa a apontar para a primeira célula da lista */
+        if (strcmp(k, t->NO.NExterno.Palavra) == 0){ /* Se a palavra k procurada for igual à palavra do nó externo */
+            while(celula != NULL){
+                if(celula->item.termo.idDoc == idDoc) {/* Confere se a palavra se encontra no idDoc passado como parâmetro */
+                    /* Achou a palavra k no idDoc passado como parâmetro*/
+                    return celula->item.termo.peso;
+                }
+                else
+                    celula = celula->prox; /* Procura na próxima célula da lista */
+            }
+            if(celula == NULL) { /* Chegou na última célula e não encontrou a palavra com o idDoc passado como parâmetro */
+                return 0.0;
+            }
+        }
+        else { /* Não encontrou a palavra na árvore */
+            return 0.0;
+        }
+    }
+    /* Se k[t->NO.NInterno.Index] for <= ao caractere do nó interno atual, chama recursivamente para o nó à esquerda */
+    if (ComparaChar(k[t->NO.NInterno.Index], t->NO.NInterno.Caractere))
+        return RetornaPesoTermo(k, t->NO.NInterno.Esq, idDoc);
+    /* Caso contrário, chama recursivamente para o nó à direita */
+    else
+        return RetornaPesoTermo(k, t->NO.NInterno.Dir, idDoc);
+
+}
+
 /* Calcula a relevância de todos os documentos da lista de arquivos de acordo com todos os termos de busca */
 void CalculaRelevancia (TipoPatNo *no, char **palavras, int n_termos) {
     float somatorio = 0.0;
     int i;
     TCelula *celula;
 
-    celula = ListaArquivos->primeiro->prox; /* Começa do primeiro documento da lista de arquivos */
+    celula = ListaArquivos.primeiro->prox; /* Começa do primeiro documento da lista de arquivos */
     while (celula != NULL) {
         for (i=0; i<n_termos; i++) { /* Soma os pesos de todos os termos de busca no documento atual */
             somatorio += RetornaPesoTermo(palavras[i], no, celula->item.arq.idDoc);
@@ -128,13 +158,7 @@ void CalculaRelevancia (TipoPatNo *no, char **palavras, int n_termos) {
         somatorio = 0.0; /* Somatório é zerado para começar a contar para o próximo documento da lista de arquivos */
         celula = celula->prox; /* Passa para o próximo documento */
     }
-    OrdenaListaArquivos(ListaArquivos);
-    celula = ListaArquivos->primeiro->prox; /* Começa do primeiro documento da lista de arquivos */
-    /* Imprime os documentos por ordem decrescente de relevância */
-    while (celula != NULL) {
-        printf("Texto %d (%s)\n", celula->item.arq.idDoc, celula->item.arq.nome_arquivo);
-        celula = celula->prox;
-    }
+    OrdenaListaArquivos(&ListaArquivos);
 }
 
 /* Recebe a string de todos os termos de busca, e armazena cada termo em uma posição do vetor de strings */
@@ -147,7 +171,7 @@ void BuscaTermos (TipoPatNo *no, char *string) {
     int j = 0; /* Indica a posição onde a string aux deve ser armazenada no vetor palavras */
     int cont = 0; /* Indica a posição atual da string que contém todas as palavras de busca */
 
-    strlwr(string); /* Passa a string inteira para minúscula */
+    strlower(string); /* Passa a string inteira para minúscula */
 
     /* Enquanto não chegar no final da string */
     while (string[cont] != '\0') {
@@ -186,7 +210,7 @@ void MontaIndiceInvertido () {
     char c; /* Caractere auxiliar para ler caractere por caractere de cada arquivo */
     inicializaPatricia(&raizPatTemp); // Inicializando a Patricia
     inicializaTST(&raizTSTTemp); // Inicializando a TST
-    celula = ListaArquivos->primeiro->prox; /* Aponta para a primeira célula da Lista de Arquivos */
+    celula = ListaArquivos.primeiro->prox; /* Aponta para a primeira célula da Lista de Arquivos */
 
     while (celula != NULL && !cancela) {
         /* Enquanto não chegar no final do arquivo */
@@ -200,7 +224,7 @@ void MontaIndiceInvertido () {
                 i++;
             }
             string[i] = '\0'; /* Adiciona '\0' indicando o fim da string */
-            strlwr(string); /* Transforma todas as letras da string em letras minúsculas */
+            strlower(string); /* Transforma todas as letras da string em letras minúsculas */
             /* Condição para não inserir uma string vazia nas árvores */
             if (strlen(string) > 0) {
                 raizPatTemp = InserePatricia(string, &raizPatTemp, idDoc); // Insere na Patricia
@@ -210,20 +234,17 @@ void MontaIndiceInvertido () {
         celula->item.arq.idDoc = idDoc;
         celula->item.arq.relevancia = 0.0;
         CalculaTermosDistintos(raizPatTemp, celula, celula->item.arq.idDoc); /* Calcula termos distintos do documento atual */
-        CalculaTermosDistintos(raizPat, celula, celula->item.arq.idDoc); /* Calcula termos distintos do documento atual */
         idDoc++; /* Incrementa o id do documento da lista */
         celula = celula->prox; /* Passa para a próxima célula */
     }
-    if(!cancela) CalculaPesos(raizPatTemp, ListaArquivos->tamanho); // Calcula o peso de todos os termos inseridos na árvore Patricia
-    else printf("Cancelado 1\n");
-    if(!cancela){
+    if(!cancela) {
+        CalculaPesos(raizPatTemp, ListaArquivos.tamanho); /* Calcula o peso de todos os termos inseridos na árvore Patricia */
 	    free(raizPat);
 	    free(raizTST);
 	    raizPat = raizPatTemp;
 	    raizTST = raizTSTTemp;
     }
     else{
-	    printf("Cancelado 2\n");
 	    free(raizTSTTemp);
 	    free(raizPatTemp);
     }
