@@ -2,9 +2,9 @@
 void gtkMain(int argc, char *argv[]){
 	GtkBuilder *gtkBuilder;
 	Widgets widgets;
-	
+
 	gtk_init(&argc, &argv);
-	
+
 	gtkBuilder = gtk_builder_new();
 	gtk_builder_add_from_file(gtkBuilder, "TelaProgramaNovoGoogle.glade", NULL);
 	widgets.MainWindow = GTK_WINDOW(gtk_builder_get_object(gtkBuilder, "MainWindow"));
@@ -44,8 +44,7 @@ void gtkMain(int argc, char *argv[]){
 			//begin search_lista_viewer
 	widgets.search_treeview_selection = GTK_TREE_SELECTION(gtk_builder_get_object(gtkBuilder, "search_treeview_selection"));
 	widgets.IdDocumento = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "IdDocumento"));
-//"widgets.NomeDocumento = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "NomeDocumento"));"// caso tenha implementado interface com Nome !! LEMBRAR DE EDITAR ONDE A COMPILACAO FALHAR
-	widgets.CaminhoDocumento = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "CaminhoDocumento"));
+	widgets.NomeDocumento = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "NomeDocumento"));
 			//end search_lista_viewer
 		//end search_inner_box
 	//inside index_box
@@ -133,30 +132,31 @@ void gtkMain(int argc, char *argv[]){
 	widgets.about_buttonbox = GTK_BUTTON_BOX(gtk_builder_get_object(gtkBuilder, "about_buttonbox"));
 			//end about_box
 		//end AboutWindow
-	
-	
+
+
 
 	/* Fazendo ligações com as entradas do glade */
 	GtkTreeIter iter;
 	widgets.iter = &iter;
-	
+
 	/* Conectando os sinais */
 	gtk_builder_connect_signals(gtkBuilder, &widgets);
-	
+
 	/* Destruindo o builder, já que não precisamos mais dele */
 	g_object_unref(G_OBJECT(gtkBuilder));
 
 	gtk_entry_completion_set_match_func(widgets.entrycompletion,func,NULL,NULL);
 	gtk_entry_completion_set_minimum_key_length(widgets.entrycompletion,0);
-	
+
 	/* Mostra a interface do glade */
 	gtk_widget_show(GTK_WIDGET(widgets.MainWindow));
-	
+
 	gtk_widget_set_sensitive(GTK_WIDGET(widgets.index_visualize_button),FALSE);
 	gtk_widget_set_sensitive(GTK_WIDGET(widgets.main_searchbutton),FALSE);
 
 	gtk_main();
 }
+/* Sobrescrita da função de comparação do entry completion - para permitir tudo - retornar sempre TRUE */
 gboolean func(GtkEntryCompletion *completion,const gchar *key,GtkTreeIter *iter,gpointer user_data){
 	return TRUE;
 }
