@@ -59,26 +59,3 @@ void imprimeLista (TLista *Lista, char* saida) {
         aux = aux->prox;
     }
 }
-
-/* Ordena a Lista de Arquivos de acordo com a relevância - decrescentemente */
-void OrdenaListaArquivos (TLista *ListaArquivos) {
-    TCelula *aux, *aux2;
-    TItem item;
-
-    aux = ListaArquivos->primeiro->prox;
-    if(aux == NULL || aux->prox == NULL)
-        return;
-
-    while(aux != NULL) {
-        aux2 = aux->prox;
-        while(aux2 != NULL) {
-            if(aux2->item.arq.relevancia > aux->item.arq.relevancia) {
-                item = aux->item;
-                aux->item = aux2->item;
-                aux2->item = item;
-            }
-            aux2 = aux2->prox;
-        }
-        aux = aux->prox;
-    }
-}
