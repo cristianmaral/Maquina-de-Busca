@@ -125,6 +125,7 @@
   </object>
   <object class="GtkEntryCompletion" id="entrycompletion">
     <property name="model">main_lista_completion</property>
+    <signal name="match-selected" handler="proximaDica" swapped="no"/>
     <child>
       <object class="GtkCellRendererText" id="completion_textrenderer"/>
       <attributes>
@@ -473,7 +474,9 @@
                       <object class="GtkTreeViewColumn" id="IdDocumento">
                         <property name="title" translatable="yes">ID do documento</property>
                         <child>
-                          <object class="GtkCellRendererText" id="IdDocumento_textrenderer"/>
+                          <object class="GtkCellRendererText" id="IdDocumento_textrenderer">
+                            <property name="alignment">center</property>
+                          </object>
                           <attributes>
                             <attribute name="text">0</attribute>
                           </attributes>
@@ -485,7 +488,9 @@
                         <property name="title" translatable="yes">Caminho Do Documento</property>
                         <property name="expand">True</property>
                         <child>
-                          <object class="GtkCellRendererText" id="NomeDocumento_textrenderer"/>
+                          <object class="GtkCellRendererText" id="CaminhoDocumento_textrenderer">
+                            <property name="alignment">center</property>
+                          </object>
                           <attributes>
                             <attribute name="text">1</attribute>
                           </attributes>
@@ -584,7 +589,9 @@
                         <property name="title" translatable="yes">Nome Do Arquivo</property>
                         <property name="expand">True</property>
                         <child>
-                          <object class="GtkCellRendererText" id="NomeDoArquivo_textrenderer"/>
+                          <object class="GtkCellRendererText" id="NomeDoArquivo_textrenderer">
+                            <property name="alignment">center</property>
+                          </object>
                           <attributes>
                             <attribute name="text">0</attribute>
                           </attributes>
@@ -596,7 +603,9 @@
                         <property name="title" translatable="yes">Caminho Do Arquivo</property>
                         <property name="expand">True</property>
                         <child>
-                          <object class="GtkCellRendererText" id="CaminhoDoArquivo_textrenderer"/>
+                          <object class="GtkCellRendererText" id="CaminhoDoArquivo_textrenderer">
+                            <property name="alignment">center</property>
+                          </object>
                           <attributes>
                             <attribute name="text">1</attribute>
                           </attributes>

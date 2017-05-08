@@ -44,6 +44,7 @@ void gtkMain(int argc, char *argv[]){
 			//begin search_lista_viewer
 	widgets.search_treeview_selection = GTK_TREE_SELECTION(gtk_builder_get_object(gtkBuilder, "search_treeview_selection"));
 	widgets.IdDocumento = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "IdDocumento"));
+//"widgets.NomeDocumento = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "NomeDocumento"));"// caso tenha implementado interface com Nome !! LEMBRAR DE EDITAR ONDE A COMPILACAO FALHAR
 	widgets.CaminhoDocumento = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(gtkBuilder, "CaminhoDocumento"));
 			//end search_lista_viewer
 		//end search_inner_box
