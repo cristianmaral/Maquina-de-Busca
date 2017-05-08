@@ -34,7 +34,7 @@ typedef struct {
 	GtkTreeView *search_lista_viewer;
 			//begin search_lista_viewer
 	GtkTreeSelection *search_treeview_selection;
-	GtkTreeViewColumn *IdDocumento, *CaminhoDocumento; //*NomeDocumento caso tenha implementado interface com Nome
+	GtkTreeViewColumn *IdDocumento, *NomeDocumento;
 			//end search_lista_viewer
 		//end search_inner_box
 	//inside index_box
@@ -108,9 +108,10 @@ typedef struct {
 			//end about_box
 		//end AboutWindow
 	GtkTreeIter *iter;//Iterador usado para trabalhar com GtkListStore
-	
-	
+
+
 } Widgets;
 gboolean func(GtkEntryCompletion *completion,const gchar *key,GtkTreeIter *iter,gpointer user_data);
 void gtkMain(int argc, char *argv[]);
+
 #endif
