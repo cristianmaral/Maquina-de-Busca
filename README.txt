@@ -6,7 +6,7 @@ http://stackoverflow.com/questions/5043632/how-can-i-make-a-gtktreeview-work-wit
 
 Instruções do Funcionamento da Aplicação:
 
-1- Execute o programa, e ao abrir a janela, clique em "Gerenciar Arquivos". Clique no botão inferior esquerdo, que contém a imagem de uma pasta, para selecionar os arquivos, então clique no botão "Adicionar" para incluir os arquivos desejados. Caso inclua algum arquivo por engano, selecione o arquivo e clique em "Remover". Os arquivos poderão estar em qualquer pasta do computador.
+1- Execute o programa, e ao abrir a janela, clique em "Gerenciar Arquivos". Clique no botão inferior esquerdo, que contém a imagem de uma pasta, para selecionar os arquivos, então clique no botão "Adicionar" para incluir os arquivos desejados. Caso inclua algum arquivo por engano, selecione o arquivo e clique em "Remover". Os arquivos poderão estar em qualquer pasta do computador. (Caso queira utilizar nossos textos-exemplos, basta adicionar todos arquivos .txt contidos na pasta "Textos-exemplos/" localizada na raiz do projeto)
 
 2- Após adicionar todos os arquivos desejados, clique em "Voltar", para voltar para a Janela principal e clique em "Construir Indice" para inserir todas as palavras dos  arquivos na Patricia (montar índice invertido) e na TST (para o auto-preenchimento).
 
