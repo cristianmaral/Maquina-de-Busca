@@ -33,13 +33,12 @@ short ConfereTipoNo (TipoPatNo *no);
 TipoPatNo* CriaNoInt (short i, TipoPatNo **Esq,  TipoPatNo **Dir, char  Caractere);
 TipoPatNo* CriaNoExt (char *k, int idDoc);
 
-float RetornaPesoTermo (char *k, TipoPatNo *t, int idDoc);
-
 /* Funções para inserir uma palavra na árvore Patricia */
 TipoPatNo* InsereEntre (char *k, TipoPatNo **t, int i, int idDoc, char Caractere);
 TipoPatNo* InserePatricia (char *k, TipoPatNo **t, int idDoc); /* A função Insere encapsula a função InsereEntre */
 
 void imprimePatricia (TipoPatNo *no, char *saida);
 void imprimePatriciaEnc (TipoPatNo *no, char *saida);
+void contaNosExternos(TipoPatNo *no, int *qtd);
 
 #endif // PATRICIA_H_INCLUDED
