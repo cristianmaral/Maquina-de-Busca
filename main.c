@@ -3,25 +3,13 @@
 #include <string.h>
 #include "GUIsignals.h"
 #include "TST.h"
+
 int main(int argc, char *argv[]){
 	inicializaPatricia(&raizPat); /* Inicializando a Patricia */
 	inicializaTST(&raizTST); /* Inicializando a TST */
-	ListaArquivos = (TLista*)malloc(sizeof(TLista));
-	inicializaLista(ListaArquivos);
-	inicializaLista(&palavras);
-	/*
-	inicializaTST(&raiz);
-	insereTST(&raiz,"cristian");
-	insereTST(&raiz,"cavalo");
-	insereTST(&raiz,"coveiro");
-	insereTST(&raiz,"armario");
-	insereTST(&raiz,"arnaldo");
-	*/
-	/*
-	char c[MAXTAM];
-	scanf("%s",c);
-	AutoPreenchimentoTST(raiz,0,c);
-	*/
+	inicializaLista(&ListaArquivos); /* Inicializando a Lista de Arquivos */
+	inicializaLista(&palavras); /* Inicializando a Lista de palavras de busca */
+
 	gtkMain(argc,argv);
 	FechaArquivos ();
 	return 0;
