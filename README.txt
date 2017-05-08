@@ -3,7 +3,7 @@ ZIVIANI, Nivio. Projeto de Algoritmos com Implementação em Pascal e C. 3. Ed. 
 http://www.geeksforgeeks.org/ternary-search-tree/
 https://www.gtk.org/documentation.php 
 http://stackoverflow.com/questions/5043632/how-can-i-make-a-gtktreeview-work-with-a-vertical-scrollbar-in-glade3
-
+Repositorio Git(hospedado no Github): https://github.com/cristianmaral/Maquina-de-Busca
 Instruções do Funcionamento da Aplicação:
 
 1- Execute o programa, e ao abrir a janela, clique em "Gerenciar Arquivos". Clique no botão inferior esquerdo, que contém a imagem de uma pasta, para selecionar os arquivos, então clique no botão "Adicionar" para incluir os arquivos desejados. Caso inclua algum arquivo por engano, selecione o arquivo e clique em "Remover". Os arquivos poderão estar em qualquer pasta do computador. (Caso queira utilizar nossos textos-exemplos, basta adicionar todos arquivos .txt contidos na pasta "Textos-exemplos/" localizada na raiz do projeto)
