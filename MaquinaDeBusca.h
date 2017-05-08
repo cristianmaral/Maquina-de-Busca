@@ -10,6 +10,7 @@ TipoTSTNo *raizTST;
 gboolean cancela;
 
 char *strlwr (char *str);
+void RetiraArquivo (char *nome_arq);
 void AdicionaArquivo (char* nome_arq);
 void FechaArquivos ();
 void CalculaPesos (TipoPatNo *t, int N);
