@@ -48,39 +48,6 @@ TipoPatNo * CriaNoExt (char *k, int idDoc) {
     return no;
 }
 
-/* Função para retornar o peso do termo k no idDoc passado como parâmetro */
-float RetornaPesoTermo (char *k, TipoPatNo *t, int idDoc) {
-    TCelula *celula; /* Célula auxiliar para percorrer a lista do nó externo encontrado */
-
-    if (ConfereTipoNo(t)) /* Se o nó for externo */
-    {
-        celula = t->NO.NExterno.Lista.primeiro->prox; /* Passa a apontar para a primeira célula da lista */
-        if (strcmp(k, t->NO.NExterno.Palavra) == 0){ /* Se a palavra k procurada for igual à palavra do nó externo */
-            while(celula != NULL){
-                if(celula->item.termo.idDoc == idDoc) {/* Confere se a palavra se encontra no idDoc passado como parâmetro */
-                    /* Achou a palavra k no idDoc passado como parâmetro*/
-                    return celula->item.termo.peso;
-                }
-                else
-                    celula = celula->prox; /* Procura na próxima célula da lista */
-            }
-            if(celula == NULL) { /* Chegou na última célula e não encontrou a palavra com o idDoc passado como parâmetro */
-                return (float)0;
-            }
-        }
-        else { /* Não encontrou a palavra na árvore */
-            return (float)0;
-        }
-    }
-    /* Se k[t->NO.NInterno.Index] for <= ao caractere do nó interno atual, chama recursivamente para o nó à esquerda */
-    if (ComparaChar(k[t->NO.NInterno.Index], t->NO.NInterno.Caractere))
-        return RetornaPesoTermo(k, t->NO.NInterno.Esq, idDoc);
-    /* Caso contrário, chama recursivamente para o nó à direita */
-    else
-        return RetornaPesoTermo(k, t->NO.NInterno.Dir, idDoc);
-
-}
-
 TipoPatNo * InsereEntre (char *k, TipoPatNo **t, int i, int idDoc, char Caractere) {
     TipoPatNo *p;
 
@@ -159,16 +126,17 @@ TipoPatNo * InserePatricia (char *k, TipoPatNo **t, int idDoc) {
     }
 }
 
-/* Função para imprimir a árvore Patricia em ordem */
+/* Função que encapsula a função imprimePatriciaEnc */
 void imprimePatricia (TipoPatNo *no, char *saida) {
     if(no == NULL) {
-        printf("Arvore esta vazia\n");
+        sprintf(saida,"");
         return;
     }
     sprintf(saida,"");
     imprimePatriciaEnc(no,saida);
 
 }
+/* Função encapsulada para imprimir a árvore Patricia em ordem */
 void imprimePatriciaEnc (TipoPatNo *no, char *saida) {
     if (ConfereTipoNo(no)) { /* Se for nó externo, o nó deve ser impresso */
         sprintf(saida,"%s[%s] == ",saida,no->NO.NExterno.Palavra);
@@ -179,4 +147,17 @@ void imprimePatriciaEnc (TipoPatNo *no, char *saida) {
     imprimePatriciaEnc(no->NO.NInterno.Esq,saida); /* Chamada recursivamente para o nó à esquerda */
     imprimePatriciaEnc(no->NO.NInterno.Dir,saida); /* Chamada recursivamente para o nó à direita */
 
+}
+
+/* Função para contar os nós externos da arvore Patricia */
+void contaNosExternos(TipoPatNo *no, int *qtd){
+	if (no == NULL) {
+		return;
+	}
+	if(ConfereTipoNo(no)){
+		(*qtd)++; /* Incrementa a quantidade de nós */
+		return;
+	}
+	contaNosExternos(no->NO.NInterno.Esq,qtd); /* Chama recursivamente para o nó à esquerda */
+	contaNosExternos(no->NO.NInterno.Dir,qtd); /* Chama recursivamente para o nó à direita */
 }
