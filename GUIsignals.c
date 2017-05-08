@@ -184,6 +184,6 @@ void updateSearchTitle (char *entrada, char **saida){
             }
         }
     }
-    *saida = (char*)realloc((*saida),sizeof(char)*(i+1));
+    //*saida = (char*)realloc((*saida),sizeof(char)*(i+1));
     printf("%s\n",*saida);
 }
