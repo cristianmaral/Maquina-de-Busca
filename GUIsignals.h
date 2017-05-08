@@ -2,15 +2,18 @@
 #define GUISIGNALS_H_INCLUDED
 #include "GUI.h"
 #include "MaquinaDeBusca.h"
-TLista palavras;
 
-//Help Funcions
+TLista palavras; /* Variável global - Lista de palavras de busca */
+
+/* Help Funcions */
 void updateFileTitle(Widgets *widgets);
 void splitPath(gchar *filepath,gchar **filename);
 void updateSearchTitle (char *entrada, char **saida);
+void atualizarCampo(GtkSearchEntry *entry, char *value);
+void AutoPreenchimentoTST(TipoTSTNo *no, int indice, char *prefixo,TLista *retorno);
 
-
-//Signals
+/* Signals */
+gboolean proximaDica(GtkEntryCompletion *entry, GtkTreeModel *model, GtkTreeIter *iter, Widgets *widgets);
 void pesquisaAlterada(GtkSearchEntry *entry, Widgets *widgets);
 void goSearchWindow (GtkButton *button, Widgets *widgets);
 void goMainWindow (GtkButton *button, Widgets *widgets);
