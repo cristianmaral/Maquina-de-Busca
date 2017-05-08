@@ -80,10 +80,15 @@ void updateIndexTitle(Widgets *widgets){
 	gtk_label_set_text(widgets->index_title, label);
 }
 void remFile (GtkButton *button, Widgets *widgets){
-	if(gtk_tree_selection_get_selected(widgets->files_treeview_selection,NULL,widgets->iter)){
-		gtk_list_store_remove(widgets->files_lista_dados,widgets->iter);
-		updateFileTitle(widgets);
+	GValue nome = {0,}; 
+	GtkTreeIter iter;
+
 		//Há algo selecionado
+	if(gtk_tree_selection_get_selected(widgets->files_treeview_selection,NULL,&iter)){
+		gtk_tree_model_get_value(GTK_TREE_MODEL(widgets->files_lista_dados),&iter,1,&nome);
+		RetiraArquivo(strdup((const char*)g_value_get_string(&nome)));
+		gtk_list_store_remove(widgets->files_lista_dados,&iter);
+		updateFileTitle(widgets);
 		gtk_widget_set_sensitive(GTK_WIDGET(widgets->index_build_button),TRUE);
 		return;
 	}
@@ -179,6 +184,6 @@ void updateSearchTitle (char *entrada, char **saida){
             }
         }
     }
-    *saida = (char*)realloc((*saida),sizeof(char)*(i+1));
+    //*saida = (char*)realloc((*saida),sizeof(char)*(i+1));
     printf("%s\n",*saida);
 }

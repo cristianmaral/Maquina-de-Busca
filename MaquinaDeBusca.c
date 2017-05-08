@@ -16,20 +16,37 @@ char *strlwr(char *str) {
     return str;
 }
 
+void RetiraArquivo (char *nome_arq) {
+	printf("%s\n",nome_arq);
+    TCelula *iterator, *temp;
+    for(iterator = ListaArquivos->primeiro;iterator != ListaArquivos->ultimo;iterator = iterator->prox){
+    	if(!strcmp(iterator->prox->item.arq.nome_arquivo,nome_arq)){
+		if(iterator->prox == ListaArquivos->ultimo){
+			iterator->prox = NULL;
+			fclose(ListaArquivos->ultimo->item.arq.entrada);
+			free (ListaArquivos->ultimo);
+			ListaArquivos->ultimo = iterator;
+			return;
+		}
+		temp = iterator->prox;
+		iterator->prox = temp->prox;
+		fclose(temp->item.arq.entrada);
+		free (temp);
+	}
+    }
+}
+
 /* Função para ler um arquivo e o inserir na lista de arquivos */
 void AdicionaArquivo (char *nome_arq) {
+	printf("%s\n",nome_arq);
     TItem *item = (TItem*)malloc(sizeof(TItem));
-    printf("Entre com o nome do arquivo que voce deseja adicionar: ");
     item->arq.nome_arquivo = nome_arq;
     item->arq.entrada = fopen(item->arq.nome_arquivo, "r");
     if (item->arq.entrada) {
-        printf("Arquivo válido\n");
         item->arq.termos_distintos = 0;
         item->arq.relevancia = 0.0;
         insereLista(ListaArquivos, item);
     }
-    else
-        printf("Arquivo inválido\n");
 }
 
 /* Fecha todos os arquivos da lista de arquivos */
@@ -150,7 +167,7 @@ void BuscaTermos (TipoPatNo *no, char *string) {
         cont++; /* Passa para a próxima posição da string */
     }
     /* Tratando a última palavra de busca */
-    aux[i-1] = '\0';
+    aux[i] = '\0';
     q_termos++; /* Incrementa a quantidade de termos de busca */
     palavras[j] = strdup(aux); /* Atribui a string auxiliar à j-ésima string do vetor de strings */
     /* Calcula a relevância de todos os termos de busca para todos os documentos da lista de arquivos */

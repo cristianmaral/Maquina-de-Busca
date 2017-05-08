@@ -148,7 +148,7 @@ TipoPatNo * InserePatricia (char *k, TipoPatNo **t, int idDoc) {
                     /* Cria uma nova célula com a palavra k cujo campo idDoc seja o idDoc passado como parâmetro */
                     item.termo.idDoc = idDoc;
                     item.termo.qtde = 1;
-                    item.termo.peso = (float)0;
+                    item.termo.peso = 0.0;
                     insereLista(&(p->NO.NExterno.Lista), &item); /* Insere a célula na lista */
                 }
             return (*t);
