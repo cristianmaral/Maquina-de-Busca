@@ -211,7 +211,12 @@ void MontaIndiceInvertido () {
     inicializaPatricia(&raizPatTemp); // Inicializando a Patricia
     inicializaTST(&raizTSTTemp); // Inicializando a TST
     celula = ListaArquivos.primeiro->prox; /* Aponta para a primeira célula da Lista de Arquivos */
-
+    /* While para percorrer a lista de arquivos e voltar o cursor de todos eles para o início do arquivo */
+    while (celula != NULL) {
+        rewind(celula->item.arq.entrada);
+        celula = celula->prox;
+    }
+    celula = ListaArquivos.primeiro->prox;
     while (celula != NULL && !cancela) {
         /* Enquanto não chegar no final do arquivo */
         while (!feof(celula->item.arq.entrada)) {
